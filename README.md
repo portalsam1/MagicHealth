@@ -97,3 +97,16 @@ Commands for MagicHealth, bare with me these commands get lengthy. They also all
 
 
   <img src="https://portalsam.net/wp-content/uploads/2021/10/DebugShowConfig.png" width="765" height="380" />
+
+
+# Permissions
+
+  * magichealth.giveitem
+
+    Access to the /magichealthgive command, default permission level: op.
+
+  * magichealth.sethealth
+
+    Access to the /magichealthsetmax command, default permission level: op.
+    
+    
