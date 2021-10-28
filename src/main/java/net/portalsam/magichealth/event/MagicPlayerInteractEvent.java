@@ -48,7 +48,7 @@ public class MagicPlayerInteractEvent implements Listener {
                         log.info(String.format("[%s] player " + player.getDisplayName() + " used a Heart Crystal, their new health is " + PlayerHealth.getPlayerMaxHealth(player), magicHealth.getDescription().getName()));
 
                         // Play a particle effect and sound sequence.
-                        player.spawnParticle(Particle.HEART, player.getEyeLocation(), 75, 1, 1, 1);
+                        player.spawnParticle(Particle.HEART, player.getEyeLocation(), 75, 0.5, 0.5, 0.5);
                         player.playSound(player.getEyeLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.7f, 0.95f);
 
                         //Destroy item after use.
