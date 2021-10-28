@@ -1,6 +1,8 @@
 package net.portalsam.magichealth;
 
 import net.portalsam.magichealth.command.health.CommandMagicSetMaxHealth;
+import net.portalsam.magichealth.command.health.tabcomplete.CommandMagicSetMaxHealthTabComplete;
+import net.portalsam.magichealth.command.item.tabcomplete.CommandMagicGiveItemTabComplete;
 import net.portalsam.magichealth.config.MagicHealthConfig;
 import net.portalsam.magichealth.database.PlayerHealth;
 import net.portalsam.magichealth.event.MagicEntityDeathEvent;
@@ -58,6 +60,9 @@ public final class MagicHealth extends JavaPlugin {
 
         Objects.requireNonNull(this.getCommand("magichealthgive")).setExecutor(new CommandMagicGiveItem());
         Objects.requireNonNull(this.getCommand("magichealthsetmax")).setExecutor(new CommandMagicSetMaxHealth());
+
+        Objects.requireNonNull(this.getCommand("magichealthgive")).setTabCompleter(new CommandMagicGiveItemTabComplete());
+        Objects.requireNonNull(this.getCommand("magichealthsetmax")).setTabCompleter(new CommandMagicSetMaxHealthTabComplete());
 
     }
 
