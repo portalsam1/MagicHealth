@@ -1,6 +1,6 @@
 # <img src="https://portalsam.net/wp-content/uploads/2021/10/IconHeart.png" width="64" height="64" /> MagicHealth
 
-Minecraft Plugin that mimics the functionality of the Scaling Health mod *( or atleast inspired by it )* adding new items including Heart Crystals that can permanently expand a player's health.
+Minecraft Plugin that mimics the functionality of the Scaling Health mod *( or atleast inspired by it )* adding new items including Heart Crystals that can permanently expand a player's health. Or completely limit a player's health all-together to less hearts.
 
 
   • Example of a full twenty heart health-bar:
