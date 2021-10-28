@@ -93,7 +93,7 @@ Commands for MagicHealth, bare with me these commands get lengthy. They also all
   
 # Configuration
 
-  * All the drop rate percentages and amounts can be configured in config.yml, you can also change how much a **Heart Crystal** changes your max health or how much a **Heart       Drain Amulet** takes away. You can also change how many hearts a player starts out with or their maximum health they can get ever.
+  * All the drop rate percentages and amounts can be configured in config.yml, you can also change how much a **Heart Crystal** changes your max health or how much a **Heart       Drain Amulet** takes away. You can also change how many hearts a player starts out with or their maximum health they can get ever. There is also another data file               playerHealthData that holds UUID key-value pairs for how big a players health-bar is, you may change these manually if you so desire.
 
 
   <img src="https://portalsam.net/wp-content/uploads/2021/10/DebugShowConfig.png" width="765" height="380" />
