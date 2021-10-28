@@ -26,7 +26,7 @@ public class MagicPlayerRespawnEvent implements Listener {
             } else {
 
                 // If they haven't played before set their maximum health to the default in the config.
-                PlayerHealth.setPlayerMaxHealth(player, MagicHealthConfig.getMaximumPlayerHealth(), true);
+                PlayerHealth.setPlayerMaxHealth(player, MagicHealthConfig.getMinimumPlayerHealth(), true);
 
             }
 
