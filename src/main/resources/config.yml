@@ -1,0 +1,51 @@
+# Magic health configuration file.
+# Expandable health with zelda-like heart crystals.
+
+#-------------------------------------------------#
+
+# Minimum and maximum player health values, minimum being the lowest hearts a player can ever have and maximum being the
+# maximum they can have, these values are divided by 2 so think 20 / 2 = 10 hearts.
+minimumPlayerHealth: 20.0
+maximumPlayerHealth: 40.0
+
+# Whether or not the server should enforce the minimum and maximum values meaning that the players health will be checked
+# and reset to be within the two minimum and maximum values if it surpasses either of them.
+enforcePlayerMinimumHealth: true
+enforcePlayerMaximumHealth: true
+
+#-------------------------------------------------#
+
+# How many hearts the heart_crystal should grant the player.
+increaseHealthBy: 2.0
+
+# How many hearts the heart_drain_amulet should take away from the player.
+decreaseHealthBy: 2.0
+
+#-------------------------------------------------#
+
+# Percent chance from 0 - 100 that a boss mob will drop magic loot.
+bossMobDropChance: 100.0
+
+# Minimum and maximum range for the amount of boss mob loot that is dropped.
+bossMobDropMinimum: 3
+bossMobDropMaximum: 9
+
+#-------------------------------------------------#
+
+# Percent chance from 0 - 100 that an uncommon mob will drop magic loot.
+uncommonMobDropChance: 15.75
+
+# Minimum and maximum range for the amount of uncommon mob loot that is dropped.
+uncommonMobDropMinimum: 1
+uncommonMobDropMaximum: 3
+
+#-------------------------------------------------#
+
+# Percent chance from 0 - 100 that a boss mob will drop magic loot.
+commonMobDropChance: 4.5
+
+# Minimum and maximum range for the amount of common mob loot that is dropped.
+commonMobDropMinimum: 1
+commonMobDropMaximum: 2
+
+#-------------------------------------------------#

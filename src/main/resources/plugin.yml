@@ -1,0 +1,26 @@
+name: MagicHealth
+version: ${project.version}
+main: net.portalsam.magichealth.MagicHealth
+api-version: 1.17
+prefix: MagicHealth
+authors: [ portalsam ]
+description: Mimics the functionality of the Scaling Health mod adding Heart Crystals that can permanently expand a player's health.
+website: https://portalsam.net
+
+commands:
+  magichealthgive:
+    description: Gives the player a MagicHealth item. Use argument "list" to show all available items.
+    usage: /magichealthgive <item> <amount>, /magichealthgive list
+    permission: magichealth.giveitem
+  magichealthsetmax:
+    description: Sets the max health of the user or a target.
+    usage: /magichealthsetmax <health> /magichealthsetmax <player> <health>
+    permission: magichealth.sethealth
+
+permissions:
+  magichealth.giveitem:
+    default: op
+    description: Gives player access to give MagicHealth items.
+  magichealth.sethealth:
+    default: op
+    description: Allows the user to set the max health of themselves or the target.
