@@ -67,7 +67,7 @@ public class CommandMagicGiveItem implements CommandExecutor {
 
                     player.getInventory().addItem(itemToGive);
                     sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Giving " + "[" + ChatColor.LIGHT_PURPLE + "x" + itemToGive.getAmount() + ChatColor.WHITE + "]" + " of item " + itemToGive.getItemMeta().getDisplayName());
-                    log.info(String.format("[%s] Giving " + "[" + ChatColor.LIGHT_PURPLE + "x" + itemToGive.getAmount() + ChatColor.WHITE + "]" + " of item " + itemToGive.getItemMeta().getDisplayName(), magicHealth.getDescription().getName()));
+                    log.info(String.format("[%s] Giving " + "[" + ChatColor.LIGHT_PURPLE + "x" + itemToGive.getAmount() + ChatColor.WHITE + "]" + " of item " + itemToGive.getItemMeta().getDisplayName() + ChatColor.WHITE + " to player " + ((Player) sender).getDisplayName(), magicHealth.getDescription().getName()));
                     return true;
 
                 } else {

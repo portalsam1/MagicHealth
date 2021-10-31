@@ -13,6 +13,19 @@ maximumPlayerHealth: 40.0
 enforcePlayerMinimumHealth: true
 enforcePlayerMaximumHealth: true
 
+# Whether the player will lose all their gained health on death, unless heart_crystals are common on your server this
+# option is e v i l .
+resetPlayersHealthOnDeath: false
+
+# Whether to enable crafting for these items.
+enableHeartShardCrafting: true
+enableHeartCrystalCrafting: true
+enableHeartDrainAmuletCrafting: true
+
+# Whether to enable the use of these items all together.
+enableHeartCrystal: true
+enableHeartDrainAmulet: true
+
 #-------------------------------------------------#
 
 # How many hearts the heart_crystal should grant the player.
@@ -23,12 +36,22 @@ decreaseHealthBy: 2.0
 
 #-------------------------------------------------#
 
+# Whether to enable drops at all from mobs.
+enableMobDrops: true
+
+#-------------------------------------------------#
+
 # Percent chance from 0 - 100 that a boss mob will drop magic loot.
 bossMobDropChance: 100.0
 
 # Minimum and maximum range for the amount of boss mob loot that is dropped.
 bossMobDropMinimum: 3
 bossMobDropMaximum: 9
+
+# List of mobs that will drop heart_shard(s) from these chances. ( Use the names from EntityType.java. )
+bossMobList:
+  - ENDER_DRAGON
+  - WITHER
 
 #-------------------------------------------------#
 
@@ -39,6 +62,18 @@ uncommonMobDropChance: 15.75
 uncommonMobDropMinimum: 1
 uncommonMobDropMaximum: 3
 
+# List of mobs that will drop heart_dust from these chances. ( Use the names from EntityType.java. )
+uncommonMobList:
+  - ELDER_GUARDIAN
+  - PIGLIN_BRUTE
+  - RAVAGER
+  - SHULKER
+  - SKELETON_HORSE
+  - VEX
+  - VINDICATOR
+  - WITHER_SKELETON
+  - GIANT
+
 #-------------------------------------------------#
 
 # Percent chance from 0 - 100 that a boss mob will drop magic loot.
@@ -47,5 +82,31 @@ commonMobDropChance: 4.5
 # Minimum and maximum range for the amount of common mob loot that is dropped.
 commonMobDropMinimum: 1
 commonMobDropMaximum: 2
+
+# List of mobs that will drop heart_dust from these chances. ( Use the names from EntityType.java. )
+commonMobList:
+  - STRIDER
+  - BEE
+  - ENDERMAN
+  - IRON_GOLEM
+  - PANDA
+  - PIGLIN
+  - POLAR_BEAR
+  - SPIDER
+  - BLAZE
+  - CREEPER
+  - ENDERMITE
+  - EVOKER
+  - GHAST
+  - GUARDIAN
+  - HOGLIN
+  - SILVERFISH
+  - SKELETON
+  - SLIME
+  - STRAY
+  - WITCH
+  - ZOGLIN
+  - ZOMBIE
+  - PILLAGER
 
 #-------------------------------------------------#

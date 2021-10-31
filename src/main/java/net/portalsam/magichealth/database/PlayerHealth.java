@@ -83,7 +83,7 @@ public class PlayerHealth {
         float value = (float)playerHealthConfig.getDouble("players." + player.getUniqueId().toString());
         if(value != 0) return value;
         else {
-            setPlayerMaxHealth(player, MagicHealthConfig.getMaximumPlayerHealth(), true);
+            setPlayerMaxHealth(player, MagicHealthConfig.getMinimumPlayerHealth(), true);
             return getPlayerMaxHealth(player);
         }
 

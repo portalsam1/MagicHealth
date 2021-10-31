@@ -2,19 +2,12 @@ package net.portalsam.magichealth.item;
 
 import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
-import net.portalsam.magichealth.database.PlayerHealth;
-import net.portalsam.magichealth.util.Constants;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
@@ -25,7 +18,6 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class HeartCrystal implements Listener {
 
@@ -57,14 +49,19 @@ public class HeartCrystal implements Listener {
 
         itemList.add(heartCrystalItem);
 
-        ShapedRecipe recipe = new ShapedRecipe(heartCrystalKey, heartCrystalItem);
-        RecipeChoice heartShard = new RecipeChoice.ExactChoice(MagicHealthItems.HEART_SHARD.heartShardItem);
+        // If crafting is enabled for this item add a recipe for it.
+        if(MagicHealthConfig.isEnablingHeartCrystalCrafting()) {
 
-        recipe.shape("SSS", "SDS", "SSS");
-        recipe.setIngredient('S', heartShard);
-        recipe.setIngredient('D', Material.DIAMOND);
+            ShapedRecipe recipe = new ShapedRecipe(heartCrystalKey, heartCrystalItem);
+            RecipeChoice heartShard = new RecipeChoice.ExactChoice(MagicHealthItems.HEART_SHARD.heartShardItem);
 
-        Bukkit.addRecipe(recipe);
+            recipe.shape("SSS", "SDS", "SSS");
+            recipe.setIngredient('S', heartShard);
+            recipe.setIngredient('D', Material.DIAMOND);
+
+            Bukkit.addRecipe(recipe);
+
+        }
 
     }
 

@@ -1,5 +1,6 @@
 package net.portalsam.magichealth.event;
 
+import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
 import net.portalsam.magichealth.item.MagicHealthItems;
 import org.bukkit.entity.*;
@@ -8,59 +9,151 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Logger;
 
 public class MagicEntityDeathEvent implements Listener {
 
-    @EventHandler
-    public void onEntityDeath(EntityDeathEvent event) {
+    public static List<EntityType> commonMobList = new ArrayList<>();
+    public static List<EntityType> uncommonMobList = new ArrayList<>();
+    public static List<EntityType> bossMobList = new ArrayList<>();
 
-        if(event.getEntity().getKiller() != null) {
+    private static final MagicHealth magicHealth = MagicHealth.getMagicHealthInstance();
+    private static final Logger log = MagicHealth.getMagicHealthLogger();
 
-            LivingEntity entity = event.getEntity();
+    static {
 
-            // Generate a number to determine drops.
-            float dropChance = (float)ThreadLocalRandom.current().nextDouble(0D, 100D);
+        for(String entity : MagicHealthConfig.getCommonMobList()) {
 
-            // List of boss mobs.
-            if (entity instanceof EnderDragon || entity instanceof Wither) {
-                if(dropChance <= MagicHealthConfig.getBossMobDropChance()) {
+            try {
 
-                    ItemStack drop = MagicHealthItems.HEART_SHARD.getHeartShardItem();
-                    drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getBossMobDropAmounts()[0], MagicHealthConfig.getBossMobDropAmounts()[1]));
+                Class<? extends Entity> entityClass = EntityType.valueOf(entity.toUpperCase()).getEntityClass();
+                assert entityClass != null;
 
-                    Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
-
+                if(LivingEntity.class.isAssignableFrom(entityClass)) {
+                    commonMobList.add(EntityType.valueOf(entity.toUpperCase()));
+                } else {
+                    throw new IllegalArgumentException();
                 }
+
+            } catch(IllegalArgumentException ignored) {
+
+                log.info(String.format("[%s] Entity '" + entity + "' was not recognized in config.yml, did you type the EntityType correctly, or is it not a LivingEntity?", magicHealth.getDescription().getName()));
+
             }
 
-            // List of uncommon mobs.
-            if (entity instanceof ElderGuardian || entity instanceof PiglinBrute || entity instanceof Ravager || entity instanceof Shulker || entity instanceof SkeletonHorse || entity instanceof Vex || entity instanceof Vindicator || entity instanceof WitherSkeleton || entity instanceof Giant) {
-                if(dropChance <= MagicHealthConfig.getUncommonMobDropChance()) {
+        }
 
-                    ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
-                    drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getUncommonMobDropAmounts()[0], MagicHealthConfig.getUncommonMobDropAmounts()[1]));
+        for(String entity : MagicHealthConfig.getUncommonMobList()) {
 
-                    Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
+            try {
 
+                Class<? extends Entity> entityClass = EntityType.valueOf(entity.toUpperCase()).getEntityClass();
+                assert entityClass != null;
+
+                if(LivingEntity.class.isAssignableFrom(entityClass)) {
+                    uncommonMobList.add(EntityType.valueOf(entity.toUpperCase()));
+                } else {
+                    throw new IllegalArgumentException();
                 }
+
+            } catch(IllegalArgumentException ignored) {
+
+                log.info(String.format("[%s] Entity '" + entity + "' was not recognized in config.yml, did you type the EntityType correctly, or is it not a LivingEntity?", magicHealth.getDescription().getName()));
+
             }
 
-            // L o n g list of common mobs.
-            if(entity instanceof Strider || entity instanceof Bee || entity instanceof Enderman || entity instanceof IronGolem || entity instanceof Panda || entity instanceof Piglin || entity instanceof PolarBear || entity instanceof Spider || entity instanceof Blaze || entity instanceof Creeper || entity instanceof Endermite || entity instanceof Evoker || entity instanceof Ghast || entity instanceof Guardian || entity instanceof Hoglin || entity instanceof Silverfish || entity instanceof Skeleton || entity instanceof Slime || entity instanceof Stray || entity instanceof Witch || entity instanceof Zoglin || entity instanceof Zombie || entity instanceof Pillager) {
-                if(dropChance <= MagicHealthConfig.getCommonMobDropChance()) {
+        }
 
-                    ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
-                    drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getCommonMobDropAmounts()[0], MagicHealthConfig.getCommonMobDropAmounts()[1]));
+        for(String entity : MagicHealthConfig.getBossMobList()) {
 
-                    Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
+            try {
 
+                Class<? extends Entity> entityClass = EntityType.valueOf(entity.toUpperCase()).getEntityClass();
+                assert entityClass != null;
+
+                if(LivingEntity.class.isAssignableFrom(entityClass)) {
+                    bossMobList.add(EntityType.valueOf(entity.toUpperCase()));
+                } else {
+                    throw new IllegalArgumentException();
                 }
+
+            } catch(IllegalArgumentException ignored) {
+
+                log.info(String.format("[%s] Entity '" + entity + "' was not recognized in config.yml, did you type the EntityType correctly, or is it not a LivingEntity?", magicHealth.getDescription().getName()));
+
             }
 
         }
 
     }
 
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event) {
+
+        if(MagicHealthConfig.mobDropsAreEnabled()) {
+            if(event.getEntity().getKiller() != null) {
+
+                LivingEntity entity = event.getEntity();
+
+                // Generate a number to determine drops.
+                float dropChance = (float)ThreadLocalRandom.current().nextDouble(0D, 100D);
+
+                // List of boss mobs.
+
+                for(EntityType entityType : bossMobList) {
+
+                    if(entityType == entity.getType()) {
+
+                        if(dropChance <= MagicHealthConfig.getBossMobDropChance()) {
+
+                            ItemStack drop = MagicHealthItems.HEART_SHARD.getHeartShardItem();
+                            drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getBossMobDropAmounts()[0], MagicHealthConfig.getBossMobDropAmounts()[1]));
+
+                            Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
+
+                        }
+                    }
+                }
+
+                // List of uncommon mobs.
+
+                for(EntityType entityType : uncommonMobList) {
+
+                    if(entityType == entity.getType()) {
+
+                        if(dropChance <= MagicHealthConfig.getUncommonMobDropChance()) {
+
+                            ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
+                            drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getUncommonMobDropAmounts()[0], MagicHealthConfig.getUncommonMobDropAmounts()[1]));
+
+                            Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
+
+                        }
+                    }
+                }
+
+                // List of common mobs.
+
+                for(EntityType entityType : commonMobList) {
+
+                    if(entityType == entity.getType()) {
+
+                        if(dropChance <= MagicHealthConfig.getCommonMobDropChance()) {
+
+                            ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
+                            drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getCommonMobDropAmounts()[0], MagicHealthConfig.getCommonMobDropAmounts()[1]));
+
+                            Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
+
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 }

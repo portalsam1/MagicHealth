@@ -1,12 +1,16 @@
 package net.portalsam.magichealth.item;
 
 import net.portalsam.magichealth.MagicHealth;
+import net.portalsam.magichealth.config.MagicHealthConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.*;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
@@ -38,14 +42,19 @@ public class HeartShard {
 
         itemList.add(heartShardItem);
 
-        NamespacedKey key = new NamespacedKey(MagicHealth.getMagicHealthInstance(), "heart_shard");
-        RecipeChoice heartDust = new RecipeChoice.ExactChoice(MagicHealthItems.HEART_DUST.heartDustItem);
+        // If crafting is enabled for this item add a recipe for it.
+        if(MagicHealthConfig.isEnablingHeartShardCrafting()) {
 
-        ShapedRecipe recipe = new ShapedRecipe(key, heartShardItem);
-        recipe.shape("DD", "DD");
-        recipe.setIngredient('D', heartDust);
+            NamespacedKey key = new NamespacedKey(MagicHealth.getMagicHealthInstance(), "heart_shard");
+            RecipeChoice heartDust = new RecipeChoice.ExactChoice(MagicHealthItems.HEART_DUST.heartDustItem);
 
-        Bukkit.addRecipe(recipe);
+            ShapedRecipe recipe = new ShapedRecipe(key, heartShardItem);
+            recipe.shape("DD", "DD");
+            recipe.setIngredient('D', heartDust);
+
+            Bukkit.addRecipe(recipe);
+
+        }
 
     }
 

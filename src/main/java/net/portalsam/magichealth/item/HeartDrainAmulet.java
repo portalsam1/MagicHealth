@@ -2,18 +2,12 @@ package net.portalsam.magichealth.item;
 
 import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
-import net.portalsam.magichealth.database.PlayerHealth;
-import net.portalsam.magichealth.util.Constants;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -23,7 +17,6 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class HeartDrainAmulet implements Listener {
 
@@ -56,14 +49,19 @@ public class HeartDrainAmulet implements Listener {
 
         itemList.add(heartDrainAmuletItem);
 
-        ShapedRecipe recipe = new ShapedRecipe(heartDrainAmuletKey, heartDrainAmuletItem);
+        // If crafting is enabled for this item add a recipe for it.
+        if(MagicHealthConfig.isEnablingHeartDrainAmuletCrafting()) {
 
-        recipe.shape("BGB", "GLG", "BGB");
-        recipe.setIngredient('B', Material.BONE);
-        recipe.setIngredient('G', Material.GUNPOWDER);
-        recipe.setIngredient('L', Material.LAVA_BUCKET);
+            ShapedRecipe recipe = new ShapedRecipe(heartDrainAmuletKey, heartDrainAmuletItem);
 
-        Bukkit.addRecipe(recipe);
+            recipe.shape("BGB", "GLG", "BGB");
+            recipe.setIngredient('B', Material.BONE);
+            recipe.setIngredient('G', Material.GUNPOWDER);
+            recipe.setIngredient('L', Material.LAVA_BUCKET);
+
+            Bukkit.addRecipe(recipe);
+
+        }
 
     }
 

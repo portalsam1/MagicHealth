@@ -2,13 +2,14 @@ package net.portalsam.magichealth;
 
 import net.portalsam.magichealth.command.health.CommandMagicSetMaxHealth;
 import net.portalsam.magichealth.command.health.tabcomplete.CommandMagicSetMaxHealthTabComplete;
+import net.portalsam.magichealth.command.item.CommandMagicGiveItem;
 import net.portalsam.magichealth.command.item.tabcomplete.CommandMagicGiveItemTabComplete;
 import net.portalsam.magichealth.config.MagicHealthConfig;
 import net.portalsam.magichealth.database.PlayerHealth;
 import net.portalsam.magichealth.event.MagicEntityDeathEvent;
+import net.portalsam.magichealth.event.MagicPlayerDeathEvent;
 import net.portalsam.magichealth.event.MagicPlayerInteractEvent;
 import net.portalsam.magichealth.event.MagicPlayerRespawnEvent;
-import net.portalsam.magichealth.command.item.CommandMagicGiveItem;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -39,7 +40,6 @@ public final class MagicHealth extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        saveConfig();
         PlayerHealth.saveConfig();
 
         LOGGER.info(String.format("[%s] is Disabled.", getDescription().getName()));
@@ -53,6 +53,7 @@ public final class MagicHealth extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MagicEntityDeathEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MagicPlayerRespawnEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MagicPlayerInteractEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new MagicPlayerDeathEvent(), this);
 
     }
 

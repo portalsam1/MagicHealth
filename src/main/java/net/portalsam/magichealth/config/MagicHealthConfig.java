@@ -3,65 +3,75 @@ package net.portalsam.magichealth.config;
 import net.portalsam.magichealth.MagicHealth;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class MagicHealthConfig {
 
     // Player variables.
 
-    public static float minimumPlayerHealth = 20f;
-    public static float maximumPlayerHealth = 40f;
+    private static float minimumPlayerHealth = 20f;
+    private static float maximumPlayerHealth = 40f;
 
-    public static boolean enforcePlayerMinimumHealth = true;
-    public static boolean enforcePlayerMaximumHealth = true;
+    private static boolean enforcePlayerMinimumHealth = true;
+    private static boolean enforcePlayerMaximumHealth = true;
 
     // Heart crystal variables.
 
-    public static float increaseHealthBy = 2f;
-    public static float decreaseHealthBy = 2f;
+    private static float increaseHealthBy = 2f;
+    private static float decreaseHealthBy = 2f;
 
     // Drop percentages.
 
-    public static float bossMobDropChance = 100.0f;
-    public static int[] bossMobDropAmounts = { 3, 9 };
+    private static boolean enableMobDrops = true;
 
-    public static float uncommonMobDropChance = 15.75f;
-    public static int[] uncommonMobDropAmounts = { 1, 3 };
+    private static float bossMobDropChance = 100.0f;
+    private static final int[] bossMobDropAmounts = { 3, 9 };
 
-    public static float commonMobDropChance = 4.5f;
-    public static int[] commonMobDropAmounts = { 1, 2 };
+    private static float uncommonMobDropChance = 15.75f;
+    private static final int[] uncommonMobDropAmounts = { 1, 3 };
+
+    private static float commonMobDropChance = 4.5f;
+    private static final int[] commonMobDropAmounts = { 1, 2 };
+
+    // Hardcore / strip players hearts on death.
+
+    private static boolean resetPlayersHealthOnDeath = false;
+
+    // Enable crafting variables.
+
+    private static boolean enableHeartShardCrafting = true;
+    private static boolean enableHeartCrystalCrafting = true;
+    private static boolean enableHeartDrainAmuletCrafting = true;
+
+    // Enable item variables.
+
+    private static boolean enableHeartCrystal = true;
+    private static boolean enableHeartDrainAmulet = true;
+
+    // Mob lists.
+
+    private static List<String> commonMobList = Arrays.asList("STRIDER", "BEE", "ENDERMAN", "IRON_GOLEM", "PANDA",
+            "PIGLIN", "POLAR_BEAR", "SPIDER", "BLAZE", "CREEPER", "ENDERMITE", "EVOKER", "GHAST", "GUARDIAN", "HOGLIN",
+            "SILVERFISH", "SKELETON", "SLIME", "STRAY", "WITCH", "ZOGLIN", "ZOMBIE", "PILLAGER");
+
+    private static List<String> uncommonMobList = Arrays.asList("ELDER_GUARDIAN", "PIGLIN_BRUTE", "RAVAGER", "SHULKER",
+            "SKELETON_HORSE", "VEX", "VINDICATOR", "WITHER_SKELETON", "GIANT");
+
+    private static List<String> bossMobList = Arrays.asList("ENDER_DRAGON", "WITHER");
+
+    // Plugin variables.
 
     private static final MagicHealth magicHealth = MagicHealth.getMagicHealthInstance();
     private static final Logger log = MagicHealth.getMagicHealthLogger();
-    private static final FileConfiguration config = magicHealth.getConfig();
+    private static FileConfiguration config = null;
 
     public static void initializeConfiguration() {
 
         magicHealth.saveDefaultConfig();
 
-        // Default config values.
-
-        config.addDefault("minimumPlayerHealth", minimumPlayerHealth);
-        config.addDefault("maximumPlayerHealth", maximumPlayerHealth);
-        config.addDefault("enforcePlayerMinimumHealth", enforcePlayerMinimumHealth);
-        config.addDefault("enforcePlayerMaximumHealth", enforcePlayerMaximumHealth);
-
-        config.addDefault("increaseHealthBy", increaseHealthBy);
-        config.addDefault("decreaseHealthBy", decreaseHealthBy);
-
-        config.addDefault("bossMobDropChance", bossMobDropChance);
-        config.addDefault("bossMobDropMinimum", bossMobDropAmounts[0]);
-        config.addDefault("bossMobDropMaximum", bossMobDropAmounts[1]);
-
-        config.addDefault("uncommonMobDropChance", uncommonMobDropChance);
-        config.addDefault("uncommonMobDropMinimum", uncommonMobDropAmounts[0]);
-        config.addDefault("uncommonMobDropMaximum", uncommonMobDropAmounts[1]);
-
-        config.addDefault("commonMobDropChance", commonMobDropChance);
-        config.addDefault("commonMobDropMinimum", commonMobDropAmounts[0]);
-        config.addDefault("commonMobDropMaximum", commonMobDropAmounts[1]);
-
-        config.options().copyDefaults(true);
+        config = magicHealth.getConfig();
 
         // Load configuration.
         loadConfiguration();
@@ -80,6 +90,8 @@ public class MagicHealthConfig {
         increaseHealthBy = (float)config.getDouble("increaseHealthBy");
         decreaseHealthBy = (float)config.getDouble("decreaseHealthBy");
 
+        enableMobDrops = config.getBoolean("enableMobDrops");
+
         bossMobDropChance = (float)config.getDouble("bossMobDropChance");
         bossMobDropAmounts[0] = config.getInt("bossMobDropMinimum");
         bossMobDropAmounts[1] = config.getInt("bossMobDropMaximum");
@@ -91,6 +103,19 @@ public class MagicHealthConfig {
         commonMobDropChance = (float)config.getDouble("commonMobDropChance");
         commonMobDropAmounts[0] = config.getInt("commonMobDropMinimum");
         commonMobDropAmounts[1] = config.getInt("commonMobDropMaximum");
+
+        resetPlayersHealthOnDeath = config.getBoolean("resetPlayersHealthOnDeath");
+
+        enableHeartShardCrafting = config.getBoolean("enableHeartShardCrafting");
+        enableHeartCrystalCrafting = config.getBoolean("enableHeartCrystalCrafting");
+        enableHeartDrainAmuletCrafting = config.getBoolean("enableHeartDrainAmuletCrafting");
+
+        enableHeartCrystal = config.getBoolean("enableHeartCrystal");
+        enableHeartDrainAmulet = config.getBoolean("enableHeartDrainAmulet");
+
+        commonMobList = config.getStringList("commonMobList");
+        uncommonMobList = config.getStringList("uncommonMobList");
+        bossMobList = config.getStringList("bossMobList");
 
         log.info(String.format("[%s] Config loaded.", magicHealth.getDescription().getName()));
 
@@ -144,6 +169,46 @@ public class MagicHealthConfig {
 
     public static float getDecreaseHealthBy() {
         return decreaseHealthBy;
+    }
+
+    public static boolean isResettingPlayersHealthOnDeath() {
+        return resetPlayersHealthOnDeath;
+    }
+
+    public static boolean isEnablingHeartShardCrafting() {
+        return enableHeartShardCrafting;
+    }
+
+    public static boolean isEnablingHeartCrystalCrafting() {
+        return enableHeartCrystalCrafting;
+    }
+
+    public static boolean isEnablingHeartDrainAmuletCrafting() {
+        return enableHeartDrainAmuletCrafting;
+    }
+
+    public static boolean isEnablingHeartCrystal() {
+        return enableHeartCrystal;
+    }
+
+    public static boolean isEnablingHeartDrainAmulet() {
+        return enableHeartDrainAmulet;
+    }
+
+    public static List<String> getCommonMobList() {
+        return commonMobList;
+    }
+
+    public static List<String> getUncommonMobList() {
+        return uncommonMobList;
+    }
+
+    public static List<String> getBossMobList() {
+        return bossMobList;
+    }
+
+    public static boolean mobDropsAreEnabled() {
+        return enableMobDrops;
     }
 
 }
