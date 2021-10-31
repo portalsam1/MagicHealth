@@ -25,7 +25,7 @@ Minecraft Plugin that mimics the functionality of the Scaling Health mod *( or a
   
 * **Heart Shard**
 
-  The **Heart Shard** is a crafted item that once again is another rare drop, it will always have a drop chance of 100% but only from boss mobs like the Wither or Ender Dragon. It   is used for crafting a **Heart Crystal**.
+  The **Heart Shard** is a crafted item that once again is another rare drop, it will always have a drop chance of 100% but only from boss mobs like the Wither or Ender Dragon.   It is used for crafting a **Heart Crystal**.
   
   <img src="https://portalsam.net/wp-content/uploads/2021/10/ItemIntroShard.png" width="763" height="211" />
   
