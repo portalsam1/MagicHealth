@@ -3,9 +3,17 @@
 Minecraft Plugin that mimics the functionality of the Scaling Health mod *( or atleast inspired by it )* adding new items including Heart Crystals that can permanently expand a player's health. Or completely limit a player's health all-together to less hearts.
 
 
-  • Example of a full twenty heart health-bar:
+  • Have a full twenty hearts:
   
   <img src="https://portalsam.net/wp-content/uploads/2021/10/HeartBarShowcase.png" width="366" height="109" />
+  
+  • A more challenging three hearts:
+  
+  <img src="https://portalsam.net/wp-content/uploads/2021/10/HealthBarSmall.png" width="366" height="85" />
+  
+  • Or even a ridiculous 100 hearts:
+  
+  <img src="https://portalsam.net/wp-content/uploads/2021/10/HealthBarLARGE.png" width="366" height="137" />
   
 # Items
 
@@ -93,8 +101,8 @@ Commands for MagicHealth, bare with me these commands get lengthy. They also all
   
 # Configuration
 
-  * All the drop rate percentages and amounts can be configured in config.yml, you can also change how much a **Heart Crystal** changes your max health or how much a **Heart       Drain Amulet** takes away. You can also change how many hearts a player starts out with or their maximum health they can get ever. There is also another data file               playerHealthData that holds UUID key-value pairs for how big a players health-bar is, you may change these manually if you so desire.
-
+  * All the drop rate percentages and amounts can be configured in config.yml, you can also change how much a **Heart Crystal** changes your max health or how much a **Heart       Drain Amulet** takes away. You can also change how many hearts a player starts out with or their maximum health they can get ever. There is also another data file               playerHealthData that holds UUID key-value pairs for how big a players health-bar is, you may change these manually if you so desire. As of Release-1.2 you can customize a       list of what mobs are in the common, uncommon, and boss mob categories so you can choose which mobs will drop these items, or if you'd like you can completely disable mob       drops all together. **Note:** to add a mob to the mob drop list they must be in the **EntityType** Enum *(Usually the Mob's name in capital letters with spaces seperated in     underscores)*.
+  
 
   <img src="https://portalsam.net/wp-content/uploads/2021/10/DebugShowConfig.png" width="765" height="380" />
 
