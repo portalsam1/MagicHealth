@@ -1,7 +1,7 @@
 name: MagicHealth
 version: ${project.version}
 main: net.portalsam.magichealth.MagicHealth
-api-version: 1.17
+api-version: 1.14
 prefix: MagicHealth
 authors: [ portalsam ]
 description: Mimics the functionality of the Scaling Health mod adding Heart Crystals that can permanently expand a player's health.

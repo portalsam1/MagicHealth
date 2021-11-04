@@ -32,7 +32,6 @@ public class PlayerHealth {
 
             boolean success = playerHealthDatabase.getParentFile().mkdirs();
             if(success) log.info(String.format("[%s] Created playerHealthData.yml successfully.", magicHealth.getDescription().getName()));
-            else log.warning(String.format("[%s] Was unable to create playerHealthData.yml, this could lead to issues!", magicHealth.getDescription().getName()));
 
             magicHealth.saveResource("playerHealthData.yml", false);
 
