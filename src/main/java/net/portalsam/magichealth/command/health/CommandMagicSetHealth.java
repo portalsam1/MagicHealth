@@ -20,7 +20,7 @@ public class CommandMagicSetHealth implements CommandExecutor {
 
         if(args.length < 1) {
 
-            sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetInvalidUsage()));
+            sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthInvalidUsage()));
             return true;
 
         } else if(args.length < 2) {
@@ -31,7 +31,7 @@ public class CommandMagicSetHealth implements CommandExecutor {
 
                     float newHealth = Float.parseFloat(args[0]);
 
-                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetOwnHealth()).replace("{NEWHEALTH}", newHealth + ""));
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthOwnHealth()).replace("{NEWHEALTH}", newHealth + ""));
                     ((Player) sender).setHealth(newHealth);
 
                     log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set their health to " + newHealth, magicHealth.getDescription().getName()));
@@ -40,14 +40,14 @@ public class CommandMagicSetHealth implements CommandExecutor {
 
                 } catch(NumberFormatException ignored) {
 
-                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetIllegalNumber()).replace("{INPUT}", args[0]));
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthIllegalNumber()).replace("{INPUT}", args[0]));
                     return true;
 
                 }
 
             } else {
 
-                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetNonPlayer()));
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthNonPlayer()));
                 return true;
 
             }
@@ -65,7 +65,7 @@ public class CommandMagicSetHealth implements CommandExecutor {
                     float newHealth = Float.parseFloat(args[1]);
 
                     assert targetPlayer != null;
-                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetOtherHealth()).replace("{PLAYER}", targetPlayer.getDisplayName()).replace("{NEWHEALTH}", newHealth + ""));
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthOtherHealth()).replace("{PLAYER}", targetPlayer.getDisplayName()).replace("{NEWHEALTH}", newHealth + ""));
                     targetPlayer.setHealth(newHealth);
 
                     log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set " + targetPlayer.getDisplayName() + "'s health to " + newHealth, magicHealth.getDescription().getName()));
@@ -74,14 +74,14 @@ public class CommandMagicSetHealth implements CommandExecutor {
 
                 } catch(NumberFormatException ignored) {
 
-                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetIllegalNumber()).replace("{INPUT}", args[1]));
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthIllegalNumber()).replace("{INPUT}", args[1]));
                     return true;
 
                 }
 
             } else {
 
-                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetIllegalPlayer()).replace("{INPUT}", args[0]));
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthIllegalPlayer()).replace("{INPUT}", args[0]));
                 return true;
 
             }

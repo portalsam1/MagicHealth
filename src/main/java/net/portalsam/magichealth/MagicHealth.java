@@ -15,6 +15,7 @@ import net.portalsam.magichealth.event.MagicEntityDeathEvent;
 import net.portalsam.magichealth.event.MagicPlayerDeathEvent;
 import net.portalsam.magichealth.event.MagicPlayerInteractEvent;
 import net.portalsam.magichealth.event.MagicPlayerRespawnEvent;
+import net.portalsam.metrics.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -27,10 +28,14 @@ public final class MagicHealth extends JavaPlugin {
     public static final Logger LOGGER = Logger.getLogger("Minecraft");
     public static MagicHealth magicHealthInstance = null;
 
+    public static final int METRICS_ID = 13259;
+    public static Metrics metrics;
+
     @Override
     public void onEnable() {
 
         magicHealthInstance = this;
+        metrics = new Metrics(this, METRICS_ID);
 
         MagicHealthConfig.initializeConfiguration();
         PluginLanguage.initializeLanguageConfiguration();

@@ -29,9 +29,9 @@ public class HeartCrystal implements Listener {
         ItemMeta meta = item.getItemMeta();
 
         assert meta != null;
-        meta.setDisplayName(PluginLanguage.getHeartCrystalName());
+        meta.setDisplayName(PluginLanguage.filterItems(PluginLanguage.getHeartCrystalName()));
 
-        meta.setLore(PluginLanguage.getHeartCrystalLore());
+        meta.setLore(PluginLanguage.filterItems(PluginLanguage.getHeartCrystalLore()));
         meta.addEnchant(Enchantment.DURABILITY, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 

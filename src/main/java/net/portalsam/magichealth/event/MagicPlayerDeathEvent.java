@@ -18,10 +18,14 @@ public class MagicPlayerDeathEvent implements Listener {
 
             Player player = event.getEntity();
 
-            // Reset the players health.
-            PlayerHealth.setPlayerMaximumHealth(player, MagicHealthConfig.getDefaultPlayerHealth(), true);
+            if(PlayerHealth.getPlayerMaximumHealthFromDatabase(player) > MagicHealthConfig.getDefaultPlayerHealth()) {
 
-            event.getEntity().sendMessage(PluginLanguage.filterDefault(PluginLanguage.getPlayerLoseAllHearts()));
+                // Reset the players health.
+                PlayerHealth.setPlayerMaximumHealth(player, MagicHealthConfig.getDefaultPlayerHealth(), true);
+
+                event.getEntity().sendMessage(PluginLanguage.filterDefault(PluginLanguage.getPlayerLoseAllHearts()));
+
+            }
 
         }
 

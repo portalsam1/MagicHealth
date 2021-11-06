@@ -21,7 +21,7 @@ public class HeartDust {
         assert meta != null;
         meta.setDisplayName(PluginLanguage.getHeartDustName());
 
-        meta.setLore(PluginLanguage.getHeartDustLore());
+        meta.setLore(PluginLanguage.filterItems(PluginLanguage.getHeartDustLore()));
         meta.addEnchant(Enchantment.DURABILITY, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);

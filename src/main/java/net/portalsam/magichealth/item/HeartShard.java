@@ -27,7 +27,7 @@ public class HeartShard {
         assert meta != null;
         meta.setDisplayName(PluginLanguage.getHeartShardName());
 
-        meta.setLore(PluginLanguage.getHeartShardLore());
+        meta.setLore(PluginLanguage.filterItems(PluginLanguage.getHeartShardLore()));
         meta.addEnchant(Enchantment.DURABILITY, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);

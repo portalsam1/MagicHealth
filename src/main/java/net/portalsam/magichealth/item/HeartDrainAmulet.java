@@ -30,7 +30,7 @@ public class HeartDrainAmulet implements Listener {
         assert meta != null;
         meta.setDisplayName(PluginLanguage.getHeartDrainAmuletName());
 
-        meta.setLore(PluginLanguage.getHeartDrainAmuletLore());
+        meta.setLore(PluginLanguage.filterItems(PluginLanguage.getHeartDrainAmuletLore()));
         meta.addEnchant(Enchantment.DURABILITY, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 

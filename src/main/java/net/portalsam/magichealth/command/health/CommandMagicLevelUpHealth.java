@@ -29,10 +29,10 @@ public class CommandMagicLevelUpHealth implements CommandExecutor {
                 for(int i = 0; i < MagicHealthConfig.getMaximumPlayerHealth(); i++) {
 
                     // If player has a greater health permission.
-                    if(player.hasPermission("magichealth.rankuphealth." + i)) {
+                    if(player.hasPermission("magichealth.rankuphealth." + (i + 1))) {
                         if(i > playerCurrentMaximumHealth) {
                             canLevelUpHealth = true;
-                            levelUpHealthTo = i;
+                            levelUpHealthTo = i + 1;
                         }
                     }
 
@@ -51,7 +51,7 @@ public class CommandMagicLevelUpHealth implements CommandExecutor {
 
             } else {
 
-                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetNonPlayer()));
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthNonPlayer()));
 
             }
 
@@ -86,10 +86,10 @@ public class CommandMagicLevelUpHealth implements CommandExecutor {
                     for(int i = 0; i < MagicHealthConfig.getMaximumPlayerHealth(); i++) {
 
                         // If player has a greater health permission.
-                        if(targetPlayer.hasPermission("magichealth.rankuphealth." + i)) {
+                        if(targetPlayer.hasPermission("magichealth.rankuphealth." + (i + 1))) {
                             if(i > playerCurrentMaximumHealth) {
                                 canLevelUpHealth = true;
-                                levelUpHealthTo = i;
+                                levelUpHealthTo = i + 1;
                             }
                         }
 

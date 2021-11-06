@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 // Retrieve all the strings this plugin uses from a file customizable by the user.
 public class PluginLanguage {
@@ -53,12 +55,12 @@ public class PluginLanguage {
     private static String magicSetMaxOtherHealth = "{PREFIX} Attempting to set {PLAYER}'s max health to {NEWHEALTH}";
     private static String magicSetMaxIllegalPlayer = "{PREFIX} &c{INPUT} is not a valid player.";
 
-    private static String magicSetInvalidUsage = "{PREFIX} Not enough arguments, either specify a health to set yourself to, or supply a player and a health.";
-    private static String magicSetOwnHealth = "{PREFIX} Attempting to set your health to '{NEWHEALTH}'";
-    private static String magicSetIllegalNumber = "{PREFIX} &c{INPUT} is not a valid number.";
-    private static String magicSetNonPlayer = "{PREFIX} &cYou must specify a player to run this command on.";
-    private static String magicSetOtherHealth = "{PREFIX} Attempting to set {PLAYER}'s health to {NEWHEALTH}";
-    private static String magicSetIllegalPlayer = "{PREFIX} &c{INPUT} is not a valid player.";
+    private static String magicSetHealthInvalidUsage = "{PREFIX} Not enough arguments, either specify a health to set yourself to, or supply a player and a health.";
+    private static String magicSetHealthOwnHealth = "{PREFIX} Attempting to set your health to '{NEWHEALTH}'";
+    private static String magicSetHealthIllegalNumber = "{PREFIX} &c{INPUT} is not a valid number.";
+    private static String magicSetHealthNonPlayer = "{PREFIX} &cYou must specify a player to run this command on.";
+    private static String magicSetHealthOtherHealth = "{PREFIX} Attempting to set {PLAYER}'s health to {NEWHEALTH}";
+    private static String magicSetHealthIllegalPlayer = "{PREFIX} &c{INPUT} is not a valid player.";
 
     private static String magicLevelUpHealthOwn = "{PREFIX} You have levelled up your health from &e{OLDHEALTH} &fto &e{NEWHEALTH}&f!";
     private static String magicLevelUpHealthMaximum = "{PREFIX} You are already at your allotted maximum health!";
@@ -99,87 +101,86 @@ public class PluginLanguage {
 
             playerLanguageConfig.load(pluginLanguageDatabase);
 
-            magicHealthPrefix = playerLanguageConfig.getString("magicHealthPrefix");
-
-            magicHealthSeparator = playerLanguageConfig.getString("magicHealthSeparator");
-
-            heartDustName = playerLanguageConfig.getString("heartDustName");
-            heartShardName = playerLanguageConfig.getString("heartShardName");
-            heartCrystalName = playerLanguageConfig.getString("heartCrystalName");
-            heartDrainAmuletName = playerLanguageConfig.getString("heartDrainAmuletName");
-
-            heartDustLore = playerLanguageConfig.getStringList("heartDustLore");
-            heartShardLore = playerLanguageConfig.getStringList("heartShardLore");
-            heartCrystalLore = playerLanguageConfig.getStringList("heartCrystalLore");
-            heartDrainAmuletLore = playerLanguageConfig.getStringList("heartDrainAmuletLore");
-
-            heartCrystalAlreadyMax = playerLanguageConfig.getString("heartCrystalAlreadyMax");
-            heartCrystalDisabled = playerLanguageConfig.getString("heartCrystalDisabled");
-
-            heartDrainAmuletAlreadyMin = playerLanguageConfig.getString("heartDrainAmuletAlreadyMin");
-            heartDrainAmuletDisabled = playerLanguageConfig.getString("heartDrainAmuletDisabled");
-
-            playerLoseAllHearts = playerLanguageConfig.getString("playerLoseAllHearts");
-
-            magicGiveItemListSubcommandName = playerLanguageConfig.getString("magicGiveItemListSubcommandName");
-            magicGiveItemList = playerLanguageConfig.getString("magicGiveItemList");
-            magicGiveItemGiven = playerLanguageConfig.getString("magicGiveItemGiven");
-            magicGiveItemInvalid = playerLanguageConfig.getString("magicGiveItemInvalid");
-            magicGiveItemNonPlayer = playerLanguageConfig.getString("magicGiveItemNonPlayer");
-            magicGiveItemInvalidUsage = playerLanguageConfig.getString("magicGiveItemInvalidUsage");
-
-            magicSetMaxInvalidUsage = playerLanguageConfig.getString("magicSetMaxInvalidUsage");
-            magicSetMaxOwnHealth = playerLanguageConfig.getString("magicSetMaxOwnHealth");
-            magicSetMaxIllegalNumber = playerLanguageConfig.getString("magicSetMaxIllegalNumber");
-            magicSetMaxNonPlayer = playerLanguageConfig.getString("magicSetMaxNonPlayer");
-            magicSetMaxOtherHealth = playerLanguageConfig.getString("magicSetMaxOtherHealth");
-            magicSetMaxIllegalPlayer = playerLanguageConfig.getString("magicSetMaxIllegalPlayer");
-
-            magicSetInvalidUsage = playerLanguageConfig.getString("magicSetInvalidUsage");
-            magicSetOwnHealth = playerLanguageConfig.getString("magicSetOwnHealth");
-            magicSetIllegalNumber = playerLanguageConfig.getString("magicSetIllegalNumber");
-            magicSetNonPlayer = playerLanguageConfig.getString("magicSetNonPlayer");
-            magicSetOtherHealth = playerLanguageConfig.getString("magicSetOtherHealth");
-            magicSetIllegalPlayer = playerLanguageConfig.getString("magicSetIllegalPlayer");
-
-            magicLevelUpHealthOwn = playerLanguageConfig.getString("magicLevelUpHealthOwn");
-            magicLevelUpHealthMaximum = playerLanguageConfig.getString("magicLevelUpHealthMaximum");
-            magicLevelUpHealthNonPlayer = playerLanguageConfig.getString("magicLevelUpHealthNonPlayer");
-            magicLevelUpHealthOther = playerLanguageConfig.getString("magicLevelUpHealthOther");
-            magicLevelUpHealthOtherNotify = playerLanguageConfig.getString("magicLevelUpHealthOtherNotify");
-            magicLevelUpHealthOtherMaximum = playerLanguageConfig.getString("magicLevelUpHealthOtherMaximum");
-            magicLevelUpHealthIllegalPlayer = playerLanguageConfig.getString("magicLevelUpHealthIllegalPlayer");
-            magicLevelUpHealthMissingPermission = playerLanguageConfig.getString("magicLevelUpHealthMissingPermission");
-
         } catch(IOException | InvalidConfigurationException ignored) {
             log.severe(String.format("[%s] Unable to load messages.yml.", magicHealth.getDescription().getName()));
         }
 
+        loadConfiguration();
+
     }
 
-    public static void saveConfiguration() {
+    private static void loadConfiguration() {
 
-        try {
+        magicHealthPrefix = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicHealthPrefix")));
 
-            playerLanguageConfig.save(pluginLanguageDatabase);
-            log.info(String.format("[%s] messages.yml has been updated.", magicHealth.getDescription().getName()));
+        magicHealthSeparator = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicHealthSeparator")));
 
-        } catch (IOException ignored) {
+        heartDustName = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("heartDustName")));
+        heartShardName = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("heartShardName")));
+        heartCrystalName = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("heartCrystalName")));
+        heartDrainAmuletName = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("heartDrainAmuletName")));
 
-            log.severe(String.format("[%s] Unable to save messages.yml", magicHealth.getDescription().getName()));
+        heartDustLore = translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getStringList("heartDustLore")));
+        heartShardLore = translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getStringList("heartShardLore")));
+        heartCrystalLore = translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getStringList("heartCrystalLore")));
+        heartDrainAmuletLore = translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getStringList("heartDrainAmuletLore")));
 
-        }
+        heartCrystalAlreadyMax = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("heartCrystalAlreadyMax")));
+        heartCrystalDisabled = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("heartCrystalDisabled"))) ;
+
+        heartDrainAmuletAlreadyMin = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("heartDrainAmuletAlreadyMin")));
+        heartDrainAmuletDisabled = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("heartDrainAmuletDisabled")));
+
+        playerLoseAllHearts = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("playerLoseAllHearts")));
+
+        magicGiveItemListSubcommandName = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicGiveItemListSubcommandName")));
+        magicGiveItemList = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicGiveItemList")));
+        magicGiveItemGiven = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicGiveItemGiven")));
+        magicGiveItemInvalid = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicGiveItemInvalid")));
+        magicGiveItemNonPlayer = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicGiveItemNonPlayer")));
+        magicGiveItemInvalidUsage = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicGiveItemInvalidUsage")));
+
+        magicSetMaxInvalidUsage = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetMaxInvalidUsage")));
+        magicSetMaxOwnHealth = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetMaxOwnHealth")));
+        magicSetMaxIllegalNumber = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetMaxIllegalNumber")));
+        magicSetMaxNonPlayer = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetMaxNonPlayer")));
+        magicSetMaxOtherHealth = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetMaxOtherHealth")));
+        magicSetMaxIllegalPlayer = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetMaxIllegalPlayer")));
+
+        magicSetHealthInvalidUsage = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetHealthInvalidUsage")));
+        magicSetHealthOwnHealth = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetHealthOwnHealth")));
+        magicSetHealthIllegalNumber = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetHealthIllegalNumber")));
+        magicSetHealthNonPlayer = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetHealthNonPlayer")));
+        magicSetHealthOtherHealth = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetHealthOtherHealth")));
+        magicSetHealthIllegalPlayer = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicSetHealthIllegalPlayer")));
+
+        magicLevelUpHealthOwn = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthOwn")));
+        magicLevelUpHealthMaximum = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthMaximum")));
+        magicLevelUpHealthNonPlayer = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthNonPlayer")));
+        magicLevelUpHealthOther = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthOther")));
+        magicLevelUpHealthOtherNotify = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthOtherNotify")));
+        magicLevelUpHealthOtherMaximum = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthOtherMaximum")));
+        magicLevelUpHealthIllegalPlayer = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthIllegalPlayer")));
+        magicLevelUpHealthMissingPermission = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthMissingPermission")));
 
     }
 
     /*/ Utility. /*/
 
     public static String filterDefault(String text) {
-        return ChatColor.translateAlternateColorCodes('&', text).replace("{PREFIX}", getMagicHealthPrefix());
+        return text.replace("{PREFIX}", getMagicHealthPrefix());
     }
 
     public static String filterItems(String text) {
         return text.replace("{HEARTDUST}", getHeartDustName()).replace("{HEARTSHARD}", getHeartShardName()).replace("{HEARTCRYSTAL}", getHeartCrystalName()).replace("{HEARTDRAINAMULET}", getHeartDrainAmuletName());
+    }
+
+    public static List<String> filterItems(List<String> text) {
+        return text.stream().map(PluginLanguage::filterItems).collect(Collectors.toList());
+    }
+
+    public static List<String> translateAlternateColorCodes(char altColorChar, List<String> textToTranslate) {
+        return textToTranslate.stream().map(s -> ChatColor.translateAlternateColorCodes(altColorChar, s)).collect(Collectors.toList());
     }
 
     /*/ Getters. /*/
@@ -296,28 +297,28 @@ public class PluginLanguage {
         return magicSetMaxIllegalPlayer;
     }
 
-    public static String getMagicSetInvalidUsage() {
-        return magicSetInvalidUsage;
+    public static String getMagicSetHealthInvalidUsage() {
+        return magicSetHealthInvalidUsage;
     }
 
-    public static String getMagicSetOwnHealth() {
-        return magicSetOwnHealth;
+    public static String getMagicSetHealthOwnHealth() {
+        return magicSetHealthOwnHealth;
     }
 
-    public static String getMagicSetIllegalNumber() {
-        return magicSetIllegalNumber;
+    public static String getMagicSetHealthIllegalNumber() {
+        return magicSetHealthIllegalNumber;
     }
 
-    public static String getMagicSetNonPlayer() {
-        return magicSetNonPlayer;
+    public static String getMagicSetHealthNonPlayer() {
+        return magicSetHealthNonPlayer;
     }
 
-    public static String getMagicSetOtherHealth() {
-        return magicSetOtherHealth;
+    public static String getMagicSetHealthOtherHealth() {
+        return magicSetHealthOtherHealth;
     }
 
-    public static String getMagicSetIllegalPlayer() {
-        return magicSetIllegalPlayer;
+    public static String getMagicSetHealthIllegalPlayer() {
+        return magicSetHealthIllegalPlayer;
     }
 
     public static String getMagicLevelUpHealthOwn() {

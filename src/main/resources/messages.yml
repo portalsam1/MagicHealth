@@ -8,7 +8,7 @@
 # look correct if this is not done.
 magicHealthPrefix: "[&dMagicHealth&f]"        # {PREFIX} if used locally in this file.
 
-# The separator character that will be used for printing lists. Don't change this unless your locale doesn't use ",".
+# The separator character that will be used for printing lists. Don’t change this unless your locale doesn’t use ",".
 # Please do NOT use color codes here it would be invalid.
 magicHealthSeparator: ","
 
@@ -18,7 +18,7 @@ magicHealthSeparator: ","
 
 heartDustName: "&dHeart Dust"                 # {HEARTDUST} if used locally in this file.
 heartShardName: "&dHeart Shard"               # {HEARTSHARD} if used locally in this file.
-heartCrystalName: "&Heart Crystal"            # {HEARTCRYSTAL} if used locally in this file.
+heartCrystalName: "&dHeart Crystal"           # {HEARTCRYSTAL} if used locally in this file.
 heartDrainAmuletName: "&cHeart Drain Amulet"  # {HEARTDRAINAMULET} if used locally in this file.
 
   # -- Item Lore -- These entries support the following local variables: {HEARTDUST}, {HEARTSHARD}, {HEARTCRYSTAL}, {HEARTDRAINAMULET}
@@ -38,7 +38,7 @@ heartShardLore:
 heartCrystalLore:
   - "&eA powerful magic crystalline structure."
   - "&fIf used this crystal can permanently"
-  - "&aexpand a player's health&f."
+  - "&aexpand a player’s health&f."
 
 heartDrainAmuletLore:
   - "&eA powerful dark magic stone plate."
@@ -52,13 +52,13 @@ heartDrainAmuletLore:
 
     # - Heart Crystal
 
-heartCrystalAlreadyMax: "{PREFIX} You are already at the maximum health!"   # When the player uses a Heart Crystal while already at the server's maximum health.
-heartCrystalDisabled: "{PREFIX} &cThis item isn't enabled on this server!"  # When the player uses a Heart Crystal but it isn't enabled on the server.
+heartCrystalAlreadyMax: "{PREFIX} You are already at the maximum health!"   # When the player uses a Heart Crystal while already at the server’s maximum health.
+heartCrystalDisabled: "{PREFIX} &cThis item isn’t enabled on this server!"  # When the player uses a Heart Crystal but it isn’t enabled on the server.
 
     # - Heart Drain Amulet
 
-heartDrainAmuletAlreadyMin: "{PREFIX} You don't have any spare hearts!"         # When the player uses a Heart Drain Amulet but they're already at the server's minimum health.
-heartDrainAmuletDisabled: "{PREFIX} &cThis item isn't enabled on this server!"  # When the player uses a Heart Drain Amulet but it isn't enabled on the server.
+heartDrainAmuletAlreadyMin: "{PREFIX} You don’t have any spare hearts!"         # When the player uses a Heart Drain Amulet but they’re already at the server’s minimum health.
+heartDrainAmuletDisabled: "{PREFIX} &cThis item isn’t enabled on this server!"  # When the player uses a Heart Drain Amulet but it isn’t enabled on the server.
 
   # -- Player Death
 
@@ -72,36 +72,36 @@ playerLoseAllHearts: "{PREFIX} &cAs consequence of your death you have lost all 
 magicGiveItemListSubcommandName: "list" # The name that will be used for the list subcommand for MagicGiveItem. Please do NOT use color codes here it would be invalid.
 
 magicGiveItemList: "{PREFIX} List of available items: {ITEMLIST}"                                                             # Item list represents the list of items names that this command outputs separated by your defined list separator.
-magicGiveItemGiven: "{PREFIX}  Giving [&dx{ITEMAMOUNT}&f] {ITEMGIVEN}&f"                                                      # The message shown when an item is given from this command, {ITEMGIVEN} should always have a white color tag at the end if you plan on moving it around.
-magicGiveItemInvalid: "{PREFIX} &cItem '{INPUT}' does not exist."                                                             # If the player inputs an item that doesn't exist {INPUT} being what the player typed.
+magicGiveItemGiven: "{PREFIX} Giving [&dx{ITEMAMOUNT}&f] of item ’{ITEMGIVEN}&f’"                                                      # The message shown when an item is given from this command, {ITEMGIVEN} should always have a white color tag at the end if you plan on moving it around.
+magicGiveItemInvalid: "{PREFIX} &cItem ’{INPUT}’ does not exist."                                                             # If the player inputs an item that doesn’t exist {INPUT} being what the player typed.
 magicGiveItemNonPlayer: "{PREFIX} &cThis command can only be used by a player."                                                        # When a non player (The console) tries to execute this command.
-magicGiveItemInvalidUsage: "{PREFIX} &cInvalid usage! Use argument '{LISTARGUMENT}' for a list of items or supply a valid item name."  # The message displayed when the player uses the command without enough arguments or invalid ones. {LISTARGUMENT} is magicGiveItemListSubcommandName that you set above.
+magicGiveItemInvalidUsage: "{PREFIX} &cInvalid usage! Use argument ’{LISTARGUMENT}’ for a list of items or supply a valid item name."  # The message displayed when the player uses the command without enough arguments or invalid ones. {LISTARGUMENT} is magicGiveItemListSubcommandName that you set above.
 
   # -- MagicSetMaxHealth
 
 magicSetMaxInvalidUsage: "{PREFIX} Not enough arguments, either specify a max health to set yourself at, or supply a player and a max health."  # When this command is used incorrectly.
-magicSetMaxOwnHealth: "{PREFIX} Attempting to set your max health to '{NEWHEALTH}'"                                                             # The text used when the player uses the command on themselves {NEWHEALTH} being their input.
-magicSetMaxIllegalNumber: "{PREFIX} &c{INPUT} is not a valid number."                                                                           # When the command failed due to an IllegalArgumentException and the input wasn't a number, {INPUT} being the argument the executor used.
+magicSetMaxOwnHealth: "{PREFIX} Attempting to set your max health to ’{NEWHEALTH}’"                                                             # The text used when the player uses the command on themselves {NEWHEALTH} being their input.
+magicSetMaxIllegalNumber: "{PREFIX} ’&c{INPUT}&f’ is not a valid number."                                                                           # When the command failed due to an IllegalArgumentException and the input wasn’t a number, {INPUT} being the argument the executor used.
 magicSetMaxNonPlayer: "{PREFIX} &cYou must specify a player to run this command on."                                                            # When a non player (The console) runs this command notify them they need to specify a player.
-magicSetMaxOtherHealth: "{PREFIX} Attempting to set {PLAYER}'s max health to {NEWHEALTH}"                                               # When the command executor uses this command on a specified player, {PLAYER} being the player's display name, and {NEWHEALTH} being their input.
-magicSetMaxIllegalPlayer: "{PREFIX} &c{INPUT} is not a valid player."                                                                   # When the command failed due to an IllegalArgumentException and the input wasn't a player, {INPUT} being the argument the executor used.
+magicSetMaxOtherHealth: "{PREFIX} Attempting to set {PLAYER}’s max health to ’{NEWHEALTH}’"                                               # When the command executor uses this command on a specified player, {PLAYER} being the player’s display name, and {NEWHEALTH} being their input.
+magicSetMaxIllegalPlayer: "{PREFIX} ’&c{INPUT}&f’ is not a valid player."                                                                   # When the command failed due to an IllegalArgumentException and the input wasn’t a player, {INPUT} being the argument the executor used.
 
   # -- MagicSetHealth
 
 magicSetHealthInvalidUsage: "{PREFIX} Not enough arguments, either specify a health to set yourself to, or supply a player and a health."  # When this command is used incorrectly.
-magicSetHealthOwnHealth: "{PREFIX} Attempting to set your health to '{NEWHEALTH}'"                                                         # The text used when the player uses the command on themselves {NEWHEALTH} being their input.
-magicSetHealthIllegalNumber: "{PREFIX} &c{INPUT} is not a valid number."                                                                   # When the command failed due to an IllegalArgumentException and the input wasn't a number, {INPUT} being the argument the executor used.
+magicSetHealthOwnHealth: "{PREFIX} Attempting to set your health to ’{NEWHEALTH}’"                                                         # The text used when the player uses the command on themselves {NEWHEALTH} being their input.
+magicSetHealthIllegalNumber: "{PREFIX} ’&c{INPUT}&f’ is not a valid number."                                                                   # When the command failed due to an IllegalArgumentException and the input wasn’t a number, {INPUT} being the argument the executor used.
 magicSetHealthNonPlayer: "{PREFIX} &cYou must specify a player to run this command on."                                                    # When a non player (The console) runs this command notify them they need to specify a player.
-magicSetHealthOtherHealth: "{PREFIX} Attempting to set {PLAYER}'s health to {NEWHEALTH}"                                           # When the command executor uses this command on a specified player, {PLAYER} being the player's display name, and {NEWHEALTH} being their input.
-magicSetHealthIllegalPlayer: "{PREFIX} &c{INPUT} is not a valid player."                                                           # When the command failed due to an IllegalArgumentException and the input wasn't a player, {INPUT} being the argument the executor used.
+magicSetHealthOtherHealth: "{PREFIX} Attempting to set {PLAYER}’s health to ’{NEWHEALTH}’"                                           # When the command executor uses this command on a specified player, {PLAYER} being the player’s display name, and {NEWHEALTH} being their input.
+magicSetHealthIllegalPlayer: "{PREFIX} ’&c{INPUT}&f’ is not a valid player."                                                           # When the command failed due to an IllegalArgumentException and the input wasn’t a player, {INPUT} being the argument the executor used.
 
   # -- MagicLevelUpHealth
 
-magicLevelUpHealthOwn: "{PREFIX} You have levelled up your health from &e{OLDHEALTH} &fto &e{NEWHEALTH}&f!"       # Message sent when a player levels up their own health. {OLDHEALTH} being their health before the level up {NEWHEALTH} being their new current health.
+magicLevelUpHealthOwn: "{PREFIX} You have levelled up your health from ’&e{OLDHEALTH}&f’ to ’&e{NEWHEALTH}&f’!"       # Message sent when a player levels up their own health. {OLDHEALTH} being their health before the level up {NEWHEALTH} being their new current health.
 magicLevelUpHealthMaximum: "{PREFIX} You are already at your allotted maximum health!"                            # Message sent when a player uses this command but is already at their maximum health determined by permissions.
 magicLevelUpHealthNonPlayer: "{PREFIX} &cOnly a player can run this without arguments, please specify a player."  # When a non player runs this command (The console) notifying them they need to specify a player.
-magicLevelUpHealthOther: "{PREFIX} Levelled up {PLAYER}&f's health from &e{OLDHEALTH} &fto &e{NEWHEALTH}&f!"      # Message when the executor forces a level up on a player, {PLAYER {OLDHEALTH} being their health before the level up {NEWHEALTH} being their new current health.
-magicLevelUpHealthOtherNotify: "{PREFIX} Your health has levelled up from &e{OLDHEALTH} &fto &e{NEWHEALTH}&f!"    # Message sent to the player that is the target of this command when the executor specifies the "notify" flag. {OLDHEALTH} being their health before the level up {NEWHEALTH} being their new current health.
+magicLevelUpHealthOther: "{PREFIX} Levelled up {PLAYER}&f’s health from ’&e{OLDHEALTH}&f’ to ’&e{NEWHEALTH}&f’!"      # Message when the executor forces a level up on a player, {PLAYER {OLDHEALTH} being their health before the level up {NEWHEALTH} being their new current health.
+magicLevelUpHealthOtherNotify: "{PREFIX} Your health has levelled up from ’&e{OLDHEALTH}&f’ to ’&e{NEWHEALTH}&f’!"    # Message sent to the player that is the target of this command when the executor specifies the "notify" flag. {OLDHEALTH} being their health before the level up {NEWHEALTH} being their new current health.
 magicLevelUpHealthOtherMaximum: "{PREFIX} This player is already at their maximum health!"                        # Message sent to the executor when they try to force a level up on another player but they are already at their maximum health determined by permissions.
-magicLevelUpHealthIllegalPlayer: "{PREFIX} &c{INPUT} is not a valid player."                                      # When the command failed due to an IllegalArgumentException and the input wasn't a player, {INPUT} being the argument the executor used.
+magicLevelUpHealthIllegalPlayer: "{PREFIX} &c{INPUT} is not a valid player."                                      # When the command failed due to an IllegalArgumentException and the input wasn’t a player, {INPUT} being the argument the executor used.
 magicLevelUpHealthMissingPermission: "{PREFIX} &cYou do not have permissions to use arguments on this command."   # When the command failed due to the executor trying to use arguments on this command without the magichealth.sethealth permission.
