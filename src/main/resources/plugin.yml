@@ -12,10 +12,22 @@ commands:
     description: Gives the player a MagicHealth item. Use argument "list" to show all available items.
     usage: /magichealthgive <item> <amount>, /magichealthgive list
     permission: magichealth.giveitem
+    aliases: [magicgive, healthgive]
   magichealthsetmax:
     description: Sets the max health of the user or a target.
     usage: /magichealthsetmax <health> /magichealthsetmax <player> <health>
     permission: magichealth.sethealth
+    aliases: [healthsetmax, setmaxhealth]
+  magichealthset:
+    description: Sets the health of the user or a target.
+    usage: /magichealthset <health> /magichealthset <player> <health>
+    permission: magichealth.sethealth
+    aliases: [healthset, sethealth]
+  magicleveluphealth:
+    description: Allows the user to upgrade their maximum health if they have the permission and a larger health allowed to them then their current health. Can by run on other players to update their health by anyone with the magichealth.sethealth permission. The additional arguement notify (true or false) can be used to hide the text sent to the player usually.
+    usage: /magicleveluphealth /magicleveluphealth <player> <notify>
+    permission: magichealth.setownhealth
+    aliases: [leveluphealth, rankuphealth, maximizehealth]
 
 permissions:
   magichealth.giveitem:
@@ -23,4 +35,10 @@ permissions:
     description: Gives player access to give MagicHealth items.
   magichealth.sethealth:
     default: op
-    description: Allows the user to set the max health of themselves or the target.
+    description: Allows the user to manage health of themselves or the target.
+  magichealth.setownhealth:
+    default: not op
+    description: Allows the player to use /magicleveluphealth at all.
+  magichealth.rankuphealth.0:
+    default: not op
+    description: Placeholder / template permission for players rankup command. Add permissions to the player in the same format to allow them to upgrade themselves to that health. Example:\ magichealth.rankuphealth.40 ( To allow the player to upgrade their health to 20 hearts with /magicleveluphealth. )

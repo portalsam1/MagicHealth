@@ -1,7 +1,6 @@
 package net.portalsam.magichealth.command.health;
 
 import net.portalsam.magichealth.MagicHealth;
-import net.portalsam.magichealth.database.PlayerHealth;
 import net.portalsam.magichealth.util.Constants;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
 
-public class CommandMagicSetMaxHealth implements CommandExecutor {
+public class CommandMagicSetHealth implements CommandExecutor {
 
     private static final MagicHealth magicHealth = MagicHealth.getMagicHealthInstance();
     private static final Logger log = MagicHealth.getMagicHealthLogger();
@@ -22,7 +21,7 @@ public class CommandMagicSetMaxHealth implements CommandExecutor {
 
         if(args.length < 1) {
 
-            sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " Not enough arguments, either specify a max health to set yourself at, or supply a player and a max health.");
+            sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " Not enough arguments, either specify a health to set yourself at, or supply a player and a health.");
             return true;
 
         } else if(args.length < 2) {
@@ -33,10 +32,10 @@ public class CommandMagicSetMaxHealth implements CommandExecutor {
 
                     float newHealth = Float.parseFloat(args[0]);
 
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Attempting to set your max health to " + newHealth);
-                    PlayerHealth.setPlayerMaximumHealth((Player)sender, newHealth, true);
+                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Attempting to set your health to " + newHealth);
+                    ((Player) sender).setHealth(newHealth);
 
-                    log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set their maximum health to " + newHealth, magicHealth.getDescription().getName()));
+                    log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set their health to " + newHealth, magicHealth.getDescription().getName()));
 
                     return true;
 
@@ -67,10 +66,10 @@ public class CommandMagicSetMaxHealth implements CommandExecutor {
                     float newHealth = Float.parseFloat(args[1]);
 
                     assert targetPlayer != null;
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Attempting to set " + targetPlayer.getDisplayName() + "'s max health to " + newHealth);
-                    PlayerHealth.setPlayerMaximumHealth(targetPlayer, newHealth, true);
+                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Attempting to set " + targetPlayer.getDisplayName() + "'s health to " + newHealth);
+                    targetPlayer.setHealth(newHealth);
 
-                    log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set " + targetPlayer.getDisplayName() + "'s maximum health to " + newHealth, magicHealth.getDescription().getName()));
+                    log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set " + targetPlayer.getDisplayName() + "'s health to " + newHealth, magicHealth.getDescription().getName()));
 
                     return true;
 

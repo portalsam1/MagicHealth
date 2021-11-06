@@ -26,7 +26,7 @@ public class PlayerHealth {
 
     }
 
-    public static void initializePlayerConfig() {
+    public static void initializePlayerConfiguration() {
 
         if(!playerHealthDatabase.exists()) {
 
@@ -49,7 +49,7 @@ public class PlayerHealth {
 
     }
 
-    public static void saveConfig() {
+    public static void saveConfiguration() {
 
         try {
             playerHealthConfig.save(playerHealthDatabase);
@@ -62,38 +62,38 @@ public class PlayerHealth {
 
     /*/ Health management. /*/
 
-    public static void setPlayerMaxHealth(Player player, float amount, boolean saveToConfig) {
+    public static void setPlayerMaximumHealth(Player player, float amount, boolean saveToConfig) {
 
         Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(amount);
-        playerHealthConfig.set("players." + player.getUniqueId().toString(), getPlayerMaxHealth(player));
+        playerHealthConfig.set("players." + player.getUniqueId().toString() + ".maxHealth", getPlayerMaximumHealth(player));
 
-        if(saveToConfig) saveConfig();
+        if(saveToConfig) saveConfiguration();
 
         checkIfHealthIsUnderMinimum(player);
 
     }
 
-    public static float getPlayerMaxHealth(Player player) {
+    public static float getPlayerMaximumHealth(Player player) {
         return (float)Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue();
     }
 
-    public static float getPlayerMaxHealthFromDatabase(Player player) {
+    public static float getPlayerMaximumHealthFromDatabase(Player player) {
 
-        float value = (float)playerHealthConfig.getDouble("players." + player.getUniqueId().toString());
+        float value = (float)playerHealthConfig.getDouble("players." + player.getUniqueId().toString() + ".maxHealth");
         if(value != 0) return value;
         else {
-            setPlayerMaxHealth(player, MagicHealthConfig.getMinimumPlayerHealth(), true);
-            return getPlayerMaxHealth(player);
+            setPlayerMaximumHealth(player, MagicHealthConfig.getDefaultPlayerHealth(), true);
+            return getPlayerMaximumHealth(player);
         }
 
     }
 
     public static void increasePlayerMaxHealth(Player player, float amount, boolean saveToConfig) {
 
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Math.min(getPlayerMaxHealth(player) + amount, MagicHealthConfig.getMaximumPlayerHealth()));
-        playerHealthConfig.set("players." + player.getUniqueId().toString(), getPlayerMaxHealth(player));
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Math.min(getPlayerMaximumHealth(player) + amount, MagicHealthConfig.getMaximumPlayerHealth()));
+        playerHealthConfig.set("players." + player.getUniqueId().toString() + ".maxHealth", getPlayerMaximumHealth(player));
 
-        if(saveToConfig) saveConfig();
+        if(saveToConfig) saveConfiguration();
 
         checkIfHealthIsUnderMinimum(player);
 
@@ -101,10 +101,10 @@ public class PlayerHealth {
 
     public static void decreasePlayerMaxHealth(Player player, float amount, boolean saveToConfig) {
 
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Math.max(getPlayerMaxHealth(player) - amount, MagicHealthConfig.getMinimumPlayerHealth()));
-        playerHealthConfig.set("players." + player.getUniqueId().toString(), getPlayerMaxHealth(player));
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Math.max(getPlayerMaximumHealth(player) - amount, MagicHealthConfig.getMinimumPlayerHealth()));
+        playerHealthConfig.set("players." + player.getUniqueId().toString() + ".maxHealth", getPlayerMaximumHealth(player));
 
-        if(saveToConfig) saveConfig();
+        if(saveToConfig) saveConfiguration();
 
         checkIfHealthIsUnderMinimum(player);
 
@@ -113,9 +113,9 @@ public class PlayerHealth {
     public static void checkIfHealthIsUnderMinimum(Player player) {
 
         // If the server is enforcing a minimum health set the players health to the minimum if they are under it.
-        if(getPlayerMaxHealth(player) < MagicHealthConfig.getMinimumPlayerHealth()) {
+        if(getPlayerMaximumHealth(player) < MagicHealthConfig.getMinimumPlayerHealth()) {
             if(MagicHealthConfig.isEnforcingPlayerMinimumHealth()) {
-                setPlayerMaxHealth(player, MagicHealthConfig.getMinimumPlayerHealth(), true);
+                setPlayerMaximumHealth(player, MagicHealthConfig.getMinimumPlayerHealth(), true);
             }
         }
 

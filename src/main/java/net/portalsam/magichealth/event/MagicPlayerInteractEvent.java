@@ -39,13 +39,13 @@ public class MagicPlayerInteractEvent implements Listener {
                         if(MagicHealthConfig.isEnablingHeartCrystal()) {
 
                         // Prevent the player from using this unless they can.
-                        if(PlayerHealth.getPlayerMaxHealth(player) >= MagicHealthConfig.getMaximumPlayerHealth()) {
+                        if(PlayerHealth.getPlayerMaximumHealth(player) >= MagicHealthConfig.getMaximumPlayerHealth()) {
                             player.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " You are already at the maximum health!");
                         } else {
 
                             // Increase the players health by what's in the configuration, or a heart by default.
                             PlayerHealth.increasePlayerMaxHealth(player, MagicHealthConfig.getIncreaseHealthBy(), true);
-                            log.info(String.format("[%s] player " + player.getDisplayName() + " used a Heart Crystal, their new health is " + PlayerHealth.getPlayerMaxHealth(player), magicHealth.getDescription().getName()));
+                            log.info(String.format("[%s] player " + player.getDisplayName() + " used a Heart Crystal, their new health is " + PlayerHealth.getPlayerMaximumHealth(player), magicHealth.getDescription().getName()));
 
                             // Play a particle effect and sound sequence.
                             player.spawnParticle(Particle.HEART, player.getEyeLocation(), 75, 0.5, 0.5, 0.5);
@@ -72,13 +72,13 @@ public class MagicPlayerInteractEvent implements Listener {
                         if(MagicHealthConfig.isEnablingHeartDrainAmulet()) {
 
                         // Prevent the player from using this unless they can.
-                        if(PlayerHealth.getPlayerMaxHealth(player) <= MagicHealthConfig.getMinimumPlayerHealth()) {
+                        if(PlayerHealth.getPlayerMaximumHealth(player) <= MagicHealthConfig.getMinimumPlayerHealth()) {
                             player.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " You don't have any spare hearts!");
                         } else {
 
                             // Decrease the players health by what's in the configuration, or a heart by default.
                             PlayerHealth.decreasePlayerMaxHealth(player, MagicHealthConfig.getDecreaseHealthBy(), true);
-                            log.info(String.format("[%s] player " + player.getDisplayName() + " used a Heart Drain Amulet, their new health is " + PlayerHealth.getPlayerMaxHealth(player), magicHealth.getDescription().getName()));
+                            log.info(String.format("[%s] player " + player.getDisplayName() + " used a Heart Drain Amulet, their new health is " + PlayerHealth.getPlayerMaximumHealth(player), magicHealth.getDescription().getName()));
 
                             // Play a particle effect and sound sequence.
                             player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation(), 15, 1, 1, 1);

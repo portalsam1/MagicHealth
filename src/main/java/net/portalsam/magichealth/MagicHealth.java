@@ -1,6 +1,10 @@
 package net.portalsam.magichealth;
 
+import net.portalsam.magichealth.command.health.CommandMagicLevelUpHealth;
+import net.portalsam.magichealth.command.health.CommandMagicSetHealth;
 import net.portalsam.magichealth.command.health.CommandMagicSetMaxHealth;
+import net.portalsam.magichealth.command.health.tabcomplete.CommandMagicLevelUpHealthTabComplete;
+import net.portalsam.magichealth.command.health.tabcomplete.CommandMagicSetHealthTabComplete;
 import net.portalsam.magichealth.command.health.tabcomplete.CommandMagicSetMaxHealthTabComplete;
 import net.portalsam.magichealth.command.item.CommandMagicGiveItem;
 import net.portalsam.magichealth.command.item.tabcomplete.CommandMagicGiveItemTabComplete;
@@ -28,7 +32,7 @@ public final class MagicHealth extends JavaPlugin {
         magicHealthInstance = this;
 
         MagicHealthConfig.initializeConfiguration();
-        PlayerHealth.initializePlayerConfig();
+        PlayerHealth.initializePlayerConfiguration();
 
         registerEvents();
         registerCommands();
@@ -40,7 +44,7 @@ public final class MagicHealth extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        PlayerHealth.saveConfig();
+        PlayerHealth.saveConfiguration();
 
         LOGGER.info(String.format("[%s] is Disabled.", getDescription().getName()));
 
@@ -61,9 +65,13 @@ public final class MagicHealth extends JavaPlugin {
 
         Objects.requireNonNull(this.getCommand("magichealthgive")).setExecutor(new CommandMagicGiveItem());
         Objects.requireNonNull(this.getCommand("magichealthsetmax")).setExecutor(new CommandMagicSetMaxHealth());
+        Objects.requireNonNull(this.getCommand("magichealthset")).setExecutor(new CommandMagicSetHealth());
+        Objects.requireNonNull(this.getCommand("magicleveluphealth")).setExecutor(new CommandMagicLevelUpHealth());
 
         Objects.requireNonNull(this.getCommand("magichealthgive")).setTabCompleter(new CommandMagicGiveItemTabComplete());
         Objects.requireNonNull(this.getCommand("magichealthsetmax")).setTabCompleter(new CommandMagicSetMaxHealthTabComplete());
+        Objects.requireNonNull(this.getCommand("magichealthset")).setTabCompleter(new CommandMagicSetHealthTabComplete());
+        Objects.requireNonNull(this.getCommand("magicleveluphealth")).setTabCompleter(new CommandMagicLevelUpHealthTabComplete());
 
     }
 

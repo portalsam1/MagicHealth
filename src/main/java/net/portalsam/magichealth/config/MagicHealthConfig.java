@@ -3,6 +3,7 @@ package net.portalsam.magichealth.config;
 import net.portalsam.magichealth.MagicHealth;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -13,6 +14,8 @@ public class MagicHealthConfig {
 
     private static float minimumPlayerHealth = 20f;
     private static float maximumPlayerHealth = 40f;
+
+    private static float defaultPlayerHealth = 20f;
 
     private static boolean enforcePlayerMinimumHealth = true;
     private static boolean enforcePlayerMaximumHealth = true;
@@ -84,6 +87,7 @@ public class MagicHealthConfig {
 
         minimumPlayerHealth = (float)config.getDouble("minimumPlayerHealth");
         maximumPlayerHealth = (float)config.getDouble("maximumPlayerHealth");
+        defaultPlayerHealth = (float)config.getDouble("defaultPlayerHealth");
         enforcePlayerMinimumHealth = config.getBoolean("enforcePlayerMinimumHealth");
         enforcePlayerMaximumHealth = config.getBoolean("enforcePlayerMaximumHealth");
 
@@ -117,11 +121,20 @@ public class MagicHealthConfig {
         uncommonMobList = config.getStringList("uncommonMobList");
         bossMobList = config.getStringList("bossMobList");
 
-        log.info(String.format("[%s] Config loaded.", magicHealth.getDescription().getName()));
+        log.info(String.format("[%s] Internal variables updated from configuration.", magicHealth.getDescription().getName()));
 
     }
 
     /*/ Getters. /*/
+
+    public static List<String> getKeys() {
+        return new ArrayList<>(config.getKeys(true));
+    }
+
+    public static String getValueLiteral(String key) {
+        if(config.contains(key)) return config.getString(key);
+        else return "null";
+    }
 
     public static float getMinimumPlayerHealth() {
         return minimumPlayerHealth;
@@ -209,6 +222,10 @@ public class MagicHealthConfig {
 
     public static boolean mobDropsAreEnabled() {
         return enableMobDrops;
+    }
+
+    public static float getDefaultPlayerHealth() {
+        return defaultPlayerHealth;
     }
 
 }

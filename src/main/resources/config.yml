@@ -8,6 +8,9 @@
 minimumPlayerHealth: 20.0
 maximumPlayerHealth: 40.0
 
+# The health that new players joining will be set to.
+defaultPlayerHealth: 20.0
+
 # Whether or not the server should enforce the minimum and maximum values meaning that the players health will be checked
 # and reset to be within the two minimum and maximum values if it surpasses either of them.
 enforcePlayerMinimumHealth: true
