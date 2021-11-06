@@ -39,6 +39,6 @@ permissions:
   magichealth.setownhealth:
     default: true
     description: Allows the player to use /magicleveluphealth at all.
-  magichealth.rankuphealth.25:
+  magichealth.rankuphealth.0:
     default: true
     description: Placeholder / template permission for players rankup command. Add permissions to the player in the same format to allow them to upgrade themselves to that health. Example:\ magichealth.rankuphealth.40 ( To allow the player to upgrade their health to 20 hearts with /magicleveluphealth. )
