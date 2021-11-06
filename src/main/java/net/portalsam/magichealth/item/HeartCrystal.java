@@ -2,8 +2,8 @@ package net.portalsam.magichealth.item;
 
 import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
+import net.portalsam.magichealth.database.PluginLanguage;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -17,7 +17,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HeartCrystal implements Listener {
 
@@ -30,14 +29,9 @@ public class HeartCrystal implements Listener {
         ItemMeta meta = item.getItemMeta();
 
         assert meta != null;
-        meta.setDisplayName(ChatColor.LIGHT_PURPLE + "Heart Crystal");
+        meta.setDisplayName(PluginLanguage.getHeartCrystalName());
 
-        List<String> itemLore = new ArrayList<>();
-        itemLore.add(ChatColor.YELLOW + "A powerful magic crystalline structure.");
-        itemLore.add(ChatColor.WHITE + "If used this crystal can permanently");
-        itemLore.add(ChatColor.GREEN + "expand a players health" + ChatColor.WHITE + ".");
-
-        meta.setLore(itemLore);
+        meta.setLore(PluginLanguage.getHeartCrystalLore());
         meta.addEnchant(Enchantment.DURABILITY, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 

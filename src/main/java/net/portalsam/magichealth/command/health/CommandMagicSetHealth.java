@@ -1,9 +1,8 @@
 package net.portalsam.magichealth.command.health;
 
 import net.portalsam.magichealth.MagicHealth;
-import net.portalsam.magichealth.util.Constants;
+import net.portalsam.magichealth.database.PluginLanguage;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +20,7 @@ public class CommandMagicSetHealth implements CommandExecutor {
 
         if(args.length < 1) {
 
-            sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " Not enough arguments, either specify a health to set yourself at, or supply a player and a health.");
+            sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetInvalidUsage()));
             return true;
 
         } else if(args.length < 2) {
@@ -32,7 +31,7 @@ public class CommandMagicSetHealth implements CommandExecutor {
 
                     float newHealth = Float.parseFloat(args[0]);
 
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Attempting to set your health to " + newHealth);
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetOwnHealth()).replace("{NEWHEALTH}", newHealth + ""));
                     ((Player) sender).setHealth(newHealth);
 
                     log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set their health to " + newHealth, magicHealth.getDescription().getName()));
@@ -41,14 +40,14 @@ public class CommandMagicSetHealth implements CommandExecutor {
 
                 } catch(NumberFormatException ignored) {
 
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " " + args[0] + " is not a valid number.");
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetIllegalNumber()).replace("{INPUT}", args[0]));
                     return true;
 
                 }
 
             } else {
 
-                sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " You must specify a player to run this on.");
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetNonPlayer()));
                 return true;
 
             }
@@ -66,7 +65,7 @@ public class CommandMagicSetHealth implements CommandExecutor {
                     float newHealth = Float.parseFloat(args[1]);
 
                     assert targetPlayer != null;
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Attempting to set " + targetPlayer.getDisplayName() + "'s health to " + newHealth);
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetOtherHealth()).replace("{PLAYER}", targetPlayer.getDisplayName()).replace("{NEWHEALTH}", newHealth + ""));
                     targetPlayer.setHealth(newHealth);
 
                     log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set " + targetPlayer.getDisplayName() + "'s health to " + newHealth, magicHealth.getDescription().getName()));
@@ -75,14 +74,14 @@ public class CommandMagicSetHealth implements CommandExecutor {
 
                 } catch(NumberFormatException ignored) {
 
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " " + args[1] + " is not a valid number.");
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetIllegalNumber()).replace("{INPUT}", args[1]));
                     return true;
 
                 }
 
             } else {
 
-                sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " " + args[0] + " is not a valid player.");
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetIllegalPlayer()).replace("{INPUT}", args[0]));
                 return true;
 
             }

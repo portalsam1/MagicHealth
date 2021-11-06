@@ -10,6 +10,7 @@ import net.portalsam.magichealth.command.item.CommandMagicGiveItem;
 import net.portalsam.magichealth.command.item.tabcomplete.CommandMagicGiveItemTabComplete;
 import net.portalsam.magichealth.config.MagicHealthConfig;
 import net.portalsam.magichealth.database.PlayerHealth;
+import net.portalsam.magichealth.database.PluginLanguage;
 import net.portalsam.magichealth.event.MagicEntityDeathEvent;
 import net.portalsam.magichealth.event.MagicPlayerDeathEvent;
 import net.portalsam.magichealth.event.MagicPlayerInteractEvent;
@@ -32,6 +33,7 @@ public final class MagicHealth extends JavaPlugin {
         magicHealthInstance = this;
 
         MagicHealthConfig.initializeConfiguration();
+        PluginLanguage.initializeLanguageConfiguration();
         PlayerHealth.initializePlayerConfiguration();
 
         registerEvents();

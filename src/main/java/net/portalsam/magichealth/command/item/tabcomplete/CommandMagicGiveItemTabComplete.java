@@ -1,5 +1,6 @@
 package net.portalsam.magichealth.command.item.tabcomplete;
 
+import net.portalsam.magichealth.database.PluginLanguage;
 import net.portalsam.magichealth.item.MagicHealthItems;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -22,7 +23,7 @@ public class CommandMagicGiveItemTabComplete implements TabCompleter {
         for(ItemStack item : MagicHealthItems.MAGIC_HEALTH_ITEMS) {
             itemList.add(ChatColor.stripColor(Objects.requireNonNull(item.getItemMeta()).getDisplayName().replace(" ", "_")));
         }
-        itemList.add("list");
+        itemList.add(PluginLanguage.getMagicGiveItemListSubcommandName());
 
         switch (args.length) {
             case 1: return itemList;

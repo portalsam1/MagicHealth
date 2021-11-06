@@ -3,7 +3,6 @@ package net.portalsam.magichealth.config;
 import net.portalsam.magichealth.MagicHealth;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -126,15 +125,6 @@ public class MagicHealthConfig {
     }
 
     /*/ Getters. /*/
-
-    public static List<String> getKeys() {
-        return new ArrayList<>(config.getKeys(true));
-    }
-
-    public static String getValueLiteral(String key) {
-        if(config.contains(key)) return config.getString(key);
-        else return "null";
-    }
 
     public static float getMinimumPlayerHealth() {
         return minimumPlayerHealth;

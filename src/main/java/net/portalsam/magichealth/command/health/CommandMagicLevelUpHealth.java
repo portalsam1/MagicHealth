@@ -2,9 +2,8 @@ package net.portalsam.magichealth.command.health;
 
 import net.portalsam.magichealth.config.MagicHealthConfig;
 import net.portalsam.magichealth.database.PlayerHealth;
-import net.portalsam.magichealth.util.Constants;
+import net.portalsam.magichealth.database.PluginLanguage;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -41,18 +40,18 @@ public class CommandMagicLevelUpHealth implements CommandExecutor {
 
                 if(canLevelUpHealth) {
 
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " You have levelled up your health from " + ChatColor.YELLOW + playerCurrentMaximumHealth + ChatColor.WHITE + " to " + ChatColor.YELLOW + levelUpHealthTo + ChatColor.WHITE + " !");
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicLevelUpHealthOwn()).replace("{OLDHEALTH}", playerCurrentMaximumHealth + "").replace("{NEWHEALTH}", levelUpHealthTo + ""));
                     PlayerHealth.setPlayerMaximumHealth(player, levelUpHealthTo, true);
 
                 } else {
 
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " You are already at your allotted maximum health!");
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicLevelUpHealthMaximum()));
 
                 }
 
             } else {
 
-                sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " Only a player can run this without arguments, please specify a player.");
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetNonPlayer()));
 
             }
 
@@ -98,25 +97,27 @@ public class CommandMagicLevelUpHealth implements CommandExecutor {
 
                     if(canLevelUpHealth) {
 
-                        if (notify) targetPlayer.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Your health has levelled up from " + ChatColor.YELLOW + playerCurrentMaximumHealth + ChatColor.WHITE + " to " + ChatColor.YELLOW + levelUpHealthTo + ChatColor.WHITE + " !");
+                        sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicLevelUpHealthOther()).replace("{OLDHEALTH}", playerCurrentMaximumHealth + "").replace("{NEWHEALTH}", levelUpHealthTo + ""));
+
+                        if (notify) targetPlayer.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicLevelUpHealthOtherNotify()).replace("{OLDHEALTH}", playerCurrentMaximumHealth + "").replace("{NEWHEALTH}", levelUpHealthTo + ""));
 
                         PlayerHealth.setPlayerMaximumHealth(targetPlayer, levelUpHealthTo, true);
 
                     } else {
 
-                        sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " This player is already at their maximum health!");
+                        sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicLevelUpHealthOtherMaximum()));
 
                     }
 
                 } else {
 
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " " + args[0] + " is not a valid player.");
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicLevelUpHealthIllegalPlayer()).replace("{PLAYER}", args[0]));
 
                 }
 
             } else {
 
-                sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " You do not have permissions to use arguments on this command.");
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicLevelUpHealthMissingPermission()));
 
             }
 

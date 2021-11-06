@@ -2,8 +2,8 @@ package net.portalsam.magichealth.item;
 
 import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
+import net.portalsam.magichealth.database.PluginLanguage;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -14,7 +14,6 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HeartShard {
 
@@ -26,15 +25,9 @@ public class HeartShard {
         ItemMeta meta = item.getItemMeta();
 
         assert meta != null;
-        meta.setDisplayName(ChatColor.LIGHT_PURPLE + "Heart Shard");
+        meta.setDisplayName(PluginLanguage.getHeartShardName());
 
-        List<String> itemLore = new ArrayList<>();
-        itemLore.add(ChatColor.YELLOW + "A powerful broken crystalline structure.");
-        itemLore.add(ChatColor.WHITE + "If eight of these crystal shards are");
-        itemLore.add(ChatColor.WHITE + "combined together with a diamond they");
-        itemLore.add(ChatColor.WHITE + "can form a " + ChatColor.LIGHT_PURPLE + "Heart Crystal" + ChatColor.WHITE + ".");
-
-        meta.setLore(itemLore);
+        meta.setLore(PluginLanguage.getHeartShardLore());
         meta.addEnchant(Enchantment.DURABILITY, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);

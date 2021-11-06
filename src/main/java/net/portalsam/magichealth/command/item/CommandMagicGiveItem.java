@@ -1,8 +1,8 @@
 package net.portalsam.magichealth.command.item;
 
 import net.portalsam.magichealth.MagicHealth;
+import net.portalsam.magichealth.database.PluginLanguage;
 import net.portalsam.magichealth.item.MagicHealthItems;
-import net.portalsam.magichealth.util.Constants;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,15 +26,15 @@ public class CommandMagicGiveItem implements CommandExecutor {
             if(args.length > 0) {
 
                 // Display a list of items if the player requests.
-                if(args[0].equalsIgnoreCase("list")) {
+                if(args[0].equalsIgnoreCase(PluginLanguage.getMagicGiveItemListSubcommandName())) {
 
                     // Add the display names of all itemStacks and replace spaces in the items name with an underscore, then print that as a list to the player.
                     StringBuilder stringBuilder = new StringBuilder();
                     for(ItemStack item : MagicHealthItems.MAGIC_HEALTH_ITEMS) {
                         stringBuilder.append(Objects.requireNonNull(item.getItemMeta()).getDisplayName().replace(" ",  "_"));
-                        if(MagicHealthItems.MAGIC_HEALTH_ITEMS.get(MagicHealthItems.MAGIC_HEALTH_ITEMS.size() - 1) != item) stringBuilder.append(ChatColor.WHITE).append(", ");
+                        if(MagicHealthItems.MAGIC_HEALTH_ITEMS.get(MagicHealthItems.MAGIC_HEALTH_ITEMS.size() - 1) != item) stringBuilder.append(ChatColor.WHITE).append(PluginLanguage.getMagicHealthSeparator()).append(" ");
                     }
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " List of available items: " + stringBuilder);
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemList()).replace("{ITEMLIST}", stringBuilder));
                     return true;
 
                 }
@@ -66,12 +66,12 @@ public class CommandMagicGiveItem implements CommandExecutor {
                     }
 
                     player.getInventory().addItem(itemToGive);
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " Giving " + "[" + ChatColor.LIGHT_PURPLE + "x" + itemToGive.getAmount() + ChatColor.WHITE + "]" + " of item " + itemToGive.getItemMeta().getDisplayName());
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemGiven()).replace("{ITEMAMOUNT}", itemToGive.getAmount() + "").replace("{ITEMGIVEN}", itemToGive.getItemMeta().getDisplayName()));
                     log.info(String.format("[%s] Giving " + "[" + ChatColor.LIGHT_PURPLE + "x" + itemToGive.getAmount() + ChatColor.WHITE + "]" + " of item " + itemToGive.getItemMeta().getDisplayName() + ChatColor.WHITE + " to player " + ((Player) sender).getDisplayName(), magicHealth.getDescription().getName()));
                     return true;
 
                 } else {
-                    sender.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + "Item '" + args[0] + "' does not exist.");
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemInvalid()).replace("{INPUT}", args[0]));
                     return true;
                 }
 
@@ -79,12 +79,12 @@ public class CommandMagicGiveItem implements CommandExecutor {
 
         } else {
 
-            sender.sendMessage(ChatColor.RED + "This command can only be run by a player.");
+            sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemNonPlayer()));
             return true;
 
         }
 
-        sender.sendMessage(ChatColor.RED + "Invalid usage! Use argument 'list' for a list of items or supply a valid item name.");
+        sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemInvalidUsage()).replace("{LISTARGUMENT}", PluginLanguage.getMagicGiveItemListSubcommandName()));
         return true;
 
     }

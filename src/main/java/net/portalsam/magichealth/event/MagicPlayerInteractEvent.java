@@ -3,9 +3,8 @@ package net.portalsam.magichealth.event;
 import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
 import net.portalsam.magichealth.database.PlayerHealth;
+import net.portalsam.magichealth.database.PluginLanguage;
 import net.portalsam.magichealth.item.MagicHealthItems;
-import net.portalsam.magichealth.util.Constants;
-import org.bukkit.ChatColor;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -40,7 +39,7 @@ public class MagicPlayerInteractEvent implements Listener {
 
                         // Prevent the player from using this unless they can.
                         if(PlayerHealth.getPlayerMaximumHealth(player) >= MagicHealthConfig.getMaximumPlayerHealth()) {
-                            player.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " You are already at the maximum health!");
+                            player.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getHeartCrystalAlreadyMax()));
                         } else {
 
                             // Increase the players health by what's in the configuration, or a heart by default.
@@ -59,7 +58,7 @@ public class MagicPlayerInteractEvent implements Listener {
 
                         }
                     } else {
-                            player.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " This item isn't enabled on this server!");
+                            player.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getHeartCrystalDisabled()));
                         }
                 }
             }
@@ -73,7 +72,7 @@ public class MagicPlayerInteractEvent implements Listener {
 
                         // Prevent the player from using this unless they can.
                         if(PlayerHealth.getPlayerMaximumHealth(player) <= MagicHealthConfig.getMinimumPlayerHealth()) {
-                            player.sendMessage(Constants.MAGIC_HEALTH_PREFIX + " You don't have any spare hearts!");
+                            player.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getHeartDrainAmuletAlreadyMin()));
                         } else {
 
                             // Decrease the players health by what's in the configuration, or a heart by default.
@@ -92,7 +91,7 @@ public class MagicPlayerInteractEvent implements Listener {
 
                         }
                     } else {
-                            player.sendMessage(Constants.MAGIC_HEALTH_PREFIX + ChatColor.RED + " This item isn't enabled on this server!");
+                            player.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getHeartDrainAmuletDisabled()));
                         }
                 }
             }
