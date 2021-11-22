@@ -10,7 +10,7 @@ public class MagicPlayerJoinEvent implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         if(MagicHealthConfig.isUsingCustomModels()) {
-            event.getPlayer().setResourcePack("https://portalsam.net/wp-content/uploads/2021/11/MagicHealth-1.zip");
+            event.getPlayer().setResourcePack("https://portalsam.net/wp-content/uploads/2021/11/MagicHealthPack.zip");
         }
     }
 
