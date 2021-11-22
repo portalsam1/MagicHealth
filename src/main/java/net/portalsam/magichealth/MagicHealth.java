@@ -1,5 +1,6 @@
 package net.portalsam.magichealth;
 
+import net.portalsam.magichealth.command.health.CommandMagicHealthTop;
 import net.portalsam.magichealth.command.health.CommandMagicLevelUpHealth;
 import net.portalsam.magichealth.command.health.CommandMagicSetHealth;
 import net.portalsam.magichealth.command.health.CommandMagicSetMaxHealth;
@@ -11,10 +12,7 @@ import net.portalsam.magichealth.command.item.tabcomplete.CommandMagicGiveItemTa
 import net.portalsam.magichealth.config.MagicHealthConfig;
 import net.portalsam.magichealth.database.PlayerHealth;
 import net.portalsam.magichealth.database.PluginLanguage;
-import net.portalsam.magichealth.event.MagicEntityDeathEvent;
-import net.portalsam.magichealth.event.MagicPlayerDeathEvent;
-import net.portalsam.magichealth.event.MagicPlayerInteractEvent;
-import net.portalsam.magichealth.event.MagicPlayerRespawnEvent;
+import net.portalsam.magichealth.event.*;
 import net.portalsam.metrics.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -65,6 +63,7 @@ public final class MagicHealth extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MagicPlayerRespawnEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MagicPlayerInteractEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MagicPlayerDeathEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new MagicPlayerJoinEvent(), this);
 
     }
 
@@ -74,6 +73,7 @@ public final class MagicHealth extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("magichealthsetmax")).setExecutor(new CommandMagicSetMaxHealth());
         Objects.requireNonNull(this.getCommand("magichealthset")).setExecutor(new CommandMagicSetHealth());
         Objects.requireNonNull(this.getCommand("magicleveluphealth")).setExecutor(new CommandMagicLevelUpHealth());
+        Objects.requireNonNull(this.getCommand("magichealthtop")).setExecutor(new CommandMagicHealthTop());
 
         Objects.requireNonNull(this.getCommand("magichealthgive")).setTabCompleter(new CommandMagicGiveItemTabComplete());
         Objects.requireNonNull(this.getCommand("magichealthsetmax")).setTabCompleter(new CommandMagicSetMaxHealthTabComplete());

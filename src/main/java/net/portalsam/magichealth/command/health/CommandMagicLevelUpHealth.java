@@ -51,7 +51,7 @@ public class CommandMagicLevelUpHealth implements CommandExecutor {
 
             } else {
 
-                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetHealthNonPlayer()));
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicLevelUpHealthNonPlayer()));
 
             }
 

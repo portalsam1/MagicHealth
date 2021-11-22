@@ -2,10 +2,12 @@ package net.portalsam.magichealth.event;
 
 import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
+import net.portalsam.magichealth.database.PlayerHealth;
 import net.portalsam.magichealth.item.MagicHealthItems;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -110,13 +112,16 @@ public class MagicEntityDeathEvent implements Listener {
 
                     if(entityType == entity.getType()) {
 
-                        if(dropChance <= MagicHealthConfig.getBossMobDropChance()) {
+                        // If the player is at max health and the server disables them looting heart dust, don't do anything.
+                        if(!(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) >= MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust())) {
+                            if(dropChance <= MagicHealthConfig.getBossMobDropChance()) {
 
-                            ItemStack drop = MagicHealthItems.HEART_SHARD.getHeartShardItem();
-                            drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getBossMobDropAmounts()[0], MagicHealthConfig.getBossMobDropAmounts()[1]));
+                                ItemStack drop = MagicHealthItems.HEART_SHARD.getHeartShardItem();
+                                drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getBossMobDropAmounts()[0], MagicHealthConfig.getBossMobDropAmounts()[1]));
 
-                            Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
+                                Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
 
+                            }
                         }
                     }
                 }
@@ -127,13 +132,16 @@ public class MagicEntityDeathEvent implements Listener {
 
                     if(entityType == entity.getType()) {
 
-                        if(dropChance <= MagicHealthConfig.getUncommonMobDropChance()) {
+                        // If the player is at max health and the server disables them looting heart dust, don't do anything.
+                        if(!(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) >= MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust())) {
+                            if (dropChance <= MagicHealthConfig.getUncommonMobDropChance()) {
 
-                            ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
-                            drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getUncommonMobDropAmounts()[0], MagicHealthConfig.getUncommonMobDropAmounts()[1]));
+                                ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
+                                drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getUncommonMobDropAmounts()[0], MagicHealthConfig.getUncommonMobDropAmounts()[1]));
 
-                            Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
+                                Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
 
+                            }
                         }
                     }
                 }
@@ -144,13 +152,16 @@ public class MagicEntityDeathEvent implements Listener {
 
                     if(entityType == entity.getType()) {
 
-                        if(dropChance <= MagicHealthConfig.getCommonMobDropChance()) {
+                        // If the player is at max health and the server disables them looting heart dust, don't do anything.
+                        if(!(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) >= MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust())) {
+                            if (dropChance <= MagicHealthConfig.getCommonMobDropChance()) {
 
-                            ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
-                            drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getCommonMobDropAmounts()[0], MagicHealthConfig.getCommonMobDropAmounts()[1]));
+                                ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
+                                drop.setAmount(ThreadLocalRandom.current().nextInt(MagicHealthConfig.getCommonMobDropAmounts()[0], MagicHealthConfig.getCommonMobDropAmounts()[1]));
 
-                            Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
+                                Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
 
+                            }
                         }
                     }
                 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class HeartDust {
 
     public ItemStack heartDustItem;
+    public ItemMeta itemMetaClean;
 
     public HeartDust(ArrayList<ItemStack> itemList) {
 
@@ -24,11 +25,18 @@ public class HeartDust {
         meta.setLore(PluginLanguage.filterItems(PluginLanguage.getHeartDustLore()));
         meta.addEnchant(Enchantment.DURABILITY, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemMetaClean = meta;
+
+        meta.setCustomModelData(121269);
         item.setItemMeta(meta);
         heartDustItem = item;
 
         itemList.add(heartDustItem);
 
+    }
+
+    public ItemMeta getItemMetaClean() {
+        return itemMetaClean;
     }
 
     public ItemStack getHeartDustItem() {

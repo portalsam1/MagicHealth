@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class HeartShard {
 
     public ItemStack heartShardItem;
+    public ItemMeta itemMetaClean;
 
     public HeartShard(ArrayList<ItemStack> itemList) {
 
@@ -30,6 +31,9 @@ public class HeartShard {
         meta.setLore(PluginLanguage.filterItems(PluginLanguage.getHeartShardLore()));
         meta.addEnchant(Enchantment.DURABILITY, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemMetaClean = meta;
+
+        meta.setCustomModelData(121269);
         item.setItemMeta(meta);
         heartShardItem = item;
 
@@ -47,8 +51,26 @@ public class HeartShard {
 
             Bukkit.addRecipe(recipe);
 
+            // Second recipe for pre-model data compatibility.
+
+            ItemStack heartDustItemClean = MagicHealthItems.HEART_DUST.heartDustItem;
+            heartDustItemClean.setItemMeta(itemMetaClean);
+
+            NamespacedKey keyClean = new NamespacedKey(MagicHealth.getMagicHealthInstance(), "heart_shard_clean");
+            RecipeChoice heartDustClean = new RecipeChoice.ExactChoice(heartDustItemClean);
+
+            ShapedRecipe recipeClean = new ShapedRecipe(keyClean, heartShardItem);
+            recipeClean.shape("DD", "DD");
+            recipeClean.setIngredient('D', heartDustClean);
+
+            Bukkit.addRecipe(recipeClean);
+
         }
 
+    }
+
+    public ItemMeta getItemMetaClean() {
+        return itemMetaClean;
     }
 
     public ItemStack getHeartShardItem() {

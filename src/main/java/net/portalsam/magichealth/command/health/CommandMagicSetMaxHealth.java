@@ -9,6 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class CommandMagicSetMaxHealth implements CommandExecutor {
@@ -48,7 +49,7 @@ public class CommandMagicSetMaxHealth implements CommandExecutor {
 
             } else {
 
-                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemNonPlayer()));
+                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetMaxNonPlayer()));
                 return true;
 
             }
@@ -69,7 +70,7 @@ public class CommandMagicSetMaxHealth implements CommandExecutor {
                     sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetMaxOtherHealth()).replace("{PLAYER}", targetPlayer.getDisplayName()).replace("{NEWHEALTH}", newHealth + ""));
                     PlayerHealth.setPlayerMaximumHealth(targetPlayer, newHealth, true);
 
-                    log.info(String.format("[%s] " + ((Player) sender).getDisplayName() + " set " + targetPlayer.getDisplayName() + "'s maximum health to " + newHealth, magicHealth.getDescription().getName()));
+                    log.info(String.format("[%s] console set " + targetPlayer.getDisplayName() + "'s maximum health to " + newHealth, magicHealth.getDescription().getName()));
 
                     return true;
 
@@ -82,11 +83,30 @@ public class CommandMagicSetMaxHealth implements CommandExecutor {
 
             } else {
 
-                sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetMaxIllegalPlayer()).replace("{INPUT}", args[0]));
-                return true;
+                // Deprecated for irrelevant reasons, has been deprecated since 1.8 so I assume safe to use.
+                String playerUUID = Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString();
+
+                try {
+
+                    float newHealth = Float.parseFloat(args[1]);
+
+                    if (PlayerHealth.getPlayerHealthConfig().contains("players." + playerUUID)) {
+                        PlayerHealth.setPlayerMaximumHealth(Objects.requireNonNull(Bukkit.getOfflinePlayer(playerUUID).getPlayer()), newHealth, true);
+                        sender.sendMessage(PluginLanguage.getMagicSetMaxOtherHealth().replace("{PLAYER}", Objects.requireNonNull(Bukkit.getOfflinePlayer(playerUUID).getPlayer()).getDisplayName()));
+                        log.info(String.format("[%s] Set offline player " + args[0] + "'s maximum health to " + newHealth, magicHealth.getDescription().getName()));
+                    } else {
+                        sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetMaxIllegalPlayer()).replace("{INPUT}", args[1]));
+                    }
+                    return true;
+
+                } catch(NumberFormatException ignored) {
+
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicSetMaxIllegalNumber()).replace("{INPUT}", args[1]));
+                    return true;
+
+                }
 
             }
-
         }
 
     }

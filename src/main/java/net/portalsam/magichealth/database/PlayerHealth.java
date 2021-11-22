@@ -2,6 +2,7 @@ package net.portalsam.magichealth.database;
 
 import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
+import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class PlayerHealth {
@@ -118,6 +119,70 @@ public class PlayerHealth {
                 setPlayerMaximumHealth(player, MagicHealthConfig.getMinimumPlayerHealth(), true);
             }
         }
+
+    }
+
+    public static List<String> getListOfPlayersHealth(PlayerHealthSortOperation sortOperation, int length) {
+
+        List<String> healthData = new ArrayList<>(Objects.requireNonNull(playerHealthConfig.getConfigurationSection("players")).getKeys(false));
+        HashMap<UUID, Float> playerMap = new HashMap<>();
+        for(String uuid : healthData) {
+
+            playerMap.put(UUID.fromString(uuid), PlayerHealth.getPlayerMaximumHealthFromDatabase(Objects.requireNonNull(Bukkit.getPlayer(UUID.fromString(uuid)))));
+
+        }
+
+        HashMap<UUID, Float> sortedPlayerMap = new HashMap<>();
+
+        switch (sortOperation) {
+            case GREATEST:
+                sortedPlayerMap = sortByComparator(playerMap, false);
+                break;
+            case LEAST:
+                sortedPlayerMap = sortByComparator(playerMap, true);
+                break;
+            case CHRONOLOGICAL:
+                sortedPlayerMap = playerMap;
+                break;
+        }
+
+        List<String> newHealthData = new ArrayList<>();
+        int index = 0;
+        for(Map.Entry<UUID, Float> entry : sortedPlayerMap.entrySet()) {
+            if(index < length) {
+                Player player = Objects.requireNonNull(Bukkit.getPlayer(UUID.fromString(String.valueOf(entry.getKey()))));
+                newHealthData.add((index + 1) + ". " + player.getDisplayName() + " : " + PlayerHealth.getPlayerMaximumHealthFromDatabase(player) / 2 + " Hearts\n");
+                index++;
+            } else break;
+        }
+
+        return newHealthData;
+
+    }
+
+    private static HashMap<UUID, Float> sortByComparator(HashMap<UUID, Float> unsortedMap, final boolean order)
+    {
+
+        List<Map.Entry<UUID, Float>> list = new LinkedList<>(unsortedMap.entrySet());
+
+        // Sorting the list based on values
+        list.sort((o1, o2) -> {
+            if (order) {
+                return o1.getValue().compareTo(o2.getValue());
+            } else {
+                return o2.getValue().compareTo(o1.getValue());
+
+            }
+        });
+
+        // Maintaining insertion order with the help of LinkedList
+        HashMap<UUID, Float> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<UUID, Float> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
 
     }
 

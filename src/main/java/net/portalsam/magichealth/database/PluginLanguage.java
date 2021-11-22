@@ -71,6 +71,8 @@ public class PluginLanguage {
     private static String magicLevelUpHealthIllegalPlayer = "{PREFIX} &c{INPUT} is not a valid player.";
     private static String magicLevelUpHealthMissingPermission = "{PREFIX} &cYou do not have permissions to use arguments on this command.";
 
+    private static String magicHealthTopTitle = "&7--- &fPlayers with the most health. &7---";
+
     // Configuration variables.
 
     private static FileConfiguration playerLanguageConfig;
@@ -162,6 +164,8 @@ public class PluginLanguage {
         magicLevelUpHealthOtherMaximum = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthOtherMaximum")));
         magicLevelUpHealthIllegalPlayer = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthIllegalPlayer")));
         magicLevelUpHealthMissingPermission = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicLevelUpHealthMissingPermission")));
+
+        magicHealthTopTitle = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(playerLanguageConfig.getString("magicHealthTopTitle")));
 
     }
 
@@ -351,6 +355,10 @@ public class PluginLanguage {
 
     public static String getMagicLevelUpHealthMissingPermission() {
         return magicLevelUpHealthMissingPermission;
+    }
+
+    public static String getMagicHealthTopTitle() {
+        return magicHealthTopTitle;
     }
 
 }

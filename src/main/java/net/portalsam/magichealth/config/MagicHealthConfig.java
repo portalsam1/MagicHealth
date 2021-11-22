@@ -19,6 +19,8 @@ public class MagicHealthConfig {
     private static boolean enforcePlayerMinimumHealth = true;
     private static boolean enforcePlayerMaximumHealth = true;
 
+    private static boolean useCustomModels = true;
+
     // Heart crystal variables.
 
     private static float increaseHealthBy = 2f;
@@ -27,6 +29,7 @@ public class MagicHealthConfig {
     // Drop percentages.
 
     private static boolean enableMobDrops = true;
+    private static boolean maxHealthPlayersLootHeartDust = true;
 
     private static float bossMobDropChance = 100.0f;
     private static final int[] bossMobDropAmounts = { 3, 9 };
@@ -89,9 +92,11 @@ public class MagicHealthConfig {
         defaultPlayerHealth = (float)config.getDouble("defaultPlayerHealth");
         enforcePlayerMinimumHealth = config.getBoolean("enforcePlayerMinimumHealth");
         enforcePlayerMaximumHealth = config.getBoolean("enforcePlayerMaximumHealth");
+        useCustomModels = config.getBoolean("useCustomModels");
 
         increaseHealthBy = (float)config.getDouble("increaseHealthBy");
         decreaseHealthBy = (float)config.getDouble("decreaseHealthBy");
+        maxHealthPlayersLootHeartDust = config.getBoolean("maxHealthPlayersLootHeartDust");
 
         enableMobDrops = config.getBoolean("enableMobDrops");
 
@@ -134,6 +139,10 @@ public class MagicHealthConfig {
         return maximumPlayerHealth;
     }
 
+    public static boolean isUsingCustomModels() {
+        return useCustomModels;
+    }
+
     public static float getBossMobDropChance() {
         return bossMobDropChance;
     }
@@ -172,6 +181,10 @@ public class MagicHealthConfig {
 
     public static float getDecreaseHealthBy() {
         return decreaseHealthBy;
+    }
+
+    public static boolean doMaxHealthPlayersLootHeartDust() {
+        return maxHealthPlayersLootHeartDust;
     }
 
     public static boolean isResettingPlayersHealthOnDeath() {

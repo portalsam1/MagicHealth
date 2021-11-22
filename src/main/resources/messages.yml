@@ -105,3 +105,7 @@ magicLevelUpHealthOtherNotify: "{PREFIX} Your health has levelled up from ’&e{
 magicLevelUpHealthOtherMaximum: "{PREFIX} This player is already at their maximum health!"                        # Message sent to the executor when they try to force a level up on another player but they are already at their maximum health determined by permissions.
 magicLevelUpHealthIllegalPlayer: "{PREFIX} &c{INPUT} is not a valid player."                                      # When the command failed due to an IllegalArgumentException and the input wasn’t a player, {INPUT} being the argument the executor used.
 magicLevelUpHealthMissingPermission: "{PREFIX} &cYou do not have permissions to use arguments on this command."   # When the command failed due to the executor trying to use arguments on this command without the magichealth.sethealth permission.
+
+  # -- MagicHealthTop
+
+magicHealthTopTitle: "&7--- &fTop players the most health. &7---" # Message displayed as the title for /magichealthtop

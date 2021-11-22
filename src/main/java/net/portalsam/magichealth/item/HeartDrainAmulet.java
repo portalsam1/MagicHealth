@@ -21,6 +21,7 @@ public class HeartDrainAmulet implements Listener {
 
     public ItemStack heartDrainAmuletItem;
     public NamespacedKey heartDrainAmuletKey = new NamespacedKey(MagicHealth.getMagicHealthInstance(), "heart_drain_amulet");
+    public ItemMeta itemMetaClean;
 
     public HeartDrainAmulet(ArrayList<ItemStack> itemList) {
 
@@ -36,7 +37,9 @@ public class HeartDrainAmulet implements Listener {
 
         PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
         persistentDataContainer.set(heartDrainAmuletKey, PersistentDataType.BYTE, (byte) 1 );
+        itemMetaClean = meta;
 
+        meta.setCustomModelData(121269);
         item.setItemMeta(meta);
         heartDrainAmuletItem = item;
 
@@ -61,6 +64,10 @@ public class HeartDrainAmulet implements Listener {
     public HeartDrainAmulet() { }
 
     /*/ Getters. /*/
+
+    public ItemMeta getItemMetaClean() {
+        return itemMetaClean;
+    }
 
     public ItemStack getHeartDrainAmuletItem() {
         return heartDrainAmuletItem;

@@ -8,6 +8,7 @@ description: Mimics the functionality of the Scaling Health mod adding Heart Cry
 website: https://portalsam.net
 
 commands:
+
   magichealthgive:
     description: Gives the player a MagicHealth item. Use argument "list" to show all available items.
     usage: /magichealthgive <item> <amount>, /magichealthgive list
@@ -28,6 +29,11 @@ commands:
     usage: /magicleveluphealth /magicleveluphealth <player> <notify>
     permission: magichealth.setownhealth
     aliases: [leveluphealth, rankuphealth, maximizehealth]
+  magichealthtop:
+    description: Allows the user to see the players with the highest health on the server.
+    usage: /magichealthtop
+    permission: magichealth.magichealthtop
+    aliases: [healthtop]
 
 permissions:
   magichealth.giveitem:
@@ -39,6 +45,9 @@ permissions:
   magichealth.setownhealth:
     default: true
     description: Allows the player to use /magicleveluphealth at all.
+  magichealth.magichealthtop:
+    default: true
+    description: Allows the player to use /magichealthtop
   magichealth.rankuphealth.0:
     default: true
     description: Placeholder / template permission for players rankup command. Add permissions to the player in the same format to allow them to upgrade themselves to that health. Example:\ magichealth.rankuphealth.40 ( To allow the player to upgrade their health to 20 hearts with /magicleveluphealth. )

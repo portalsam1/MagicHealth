@@ -29,6 +29,12 @@ enableHeartDrainAmuletCrafting: true
 enableHeartCrystal: true
 enableHeartDrainAmulet: true
 
+# Should players that have already gotten to the maximum health get heart dust from their kills?
+maxHealthPlayersLootHeartDust: true
+
+# Should the plugin download the custom textures for it's items?
+useCustomModels: true
+
 #-------------------------------------------------#
 
 # How many hearts the heart_crystal should grant the player.
