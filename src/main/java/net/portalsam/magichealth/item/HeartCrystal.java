@@ -22,7 +22,6 @@ public class HeartCrystal implements Listener {
 
     public ItemStack heartCrystalItem;
     public NamespacedKey heartCrystalKey = new NamespacedKey(MagicHealth.getMagicHealthInstance(), "heart_crystal");
-    public NamespacedKey heartCrystalKeyClean = new NamespacedKey(MagicHealth.getMagicHealthInstance(), "heart_crystal_clean");
     public ItemMeta itemMetaClean;
 
     public HeartCrystal(ArrayList<ItemStack> itemList) {
@@ -59,20 +58,6 @@ public class HeartCrystal implements Listener {
 
             Bukkit.addRecipe(recipe);
 
-            // Second recipe for pre-model data compatibility.
-
-            ItemStack heartShardItemClean = MagicHealthItems.HEART_SHARD.heartShardItem;
-            heartShardItemClean.setItemMeta(itemMetaClean);
-
-            ShapedRecipe recipeClean = new ShapedRecipe(heartCrystalKeyClean, heartCrystalItem);
-            RecipeChoice heartShardClean = new RecipeChoice.ExactChoice(heartShardItemClean);
-
-            recipeClean.shape("SSS", "SDS", "SSS");
-            recipeClean.setIngredient('S', heartShardClean);
-            recipeClean.setIngredient('D', Material.DIAMOND);
-
-            Bukkit.addRecipe(recipeClean);
-
         }
 
     }
@@ -87,10 +72,6 @@ public class HeartCrystal implements Listener {
 
     public NamespacedKey getHeartCrystalKey() {
         return heartCrystalKey;
-    }
-
-    public void setHeartCrystalKeyClean(NamespacedKey heartCrystalKeyClean) {
-        this.heartCrystalKeyClean = heartCrystalKeyClean;
     }
 
     public ItemMeta getItemMetaClean() {

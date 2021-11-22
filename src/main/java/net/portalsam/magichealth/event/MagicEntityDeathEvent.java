@@ -113,7 +113,7 @@ public class MagicEntityDeathEvent implements Listener {
                     if(entityType == entity.getType()) {
 
                         // If the player is at max health and the server disables them looting heart dust, don't do anything.
-                        if(!(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) >= MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust())) {
+                        if(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) < MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust()) {
                             if(dropChance <= MagicHealthConfig.getBossMobDropChance()) {
 
                                 ItemStack drop = MagicHealthItems.HEART_SHARD.getHeartShardItem();
@@ -133,7 +133,7 @@ public class MagicEntityDeathEvent implements Listener {
                     if(entityType == entity.getType()) {
 
                         // If the player is at max health and the server disables them looting heart dust, don't do anything.
-                        if(!(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) >= MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust())) {
+                        if(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) < MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust()) {
                             if (dropChance <= MagicHealthConfig.getUncommonMobDropChance()) {
 
                                 ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
@@ -153,7 +153,7 @@ public class MagicEntityDeathEvent implements Listener {
                     if(entityType == entity.getType()) {
 
                         // If the player is at max health and the server disables them looting heart dust, don't do anything.
-                        if(!(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) >= MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust())) {
+                        if(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) < MagicHealthConfig.getMaximumPlayerHealth() && !MagicHealthConfig.doMaxHealthPlayersLootHeartDust()) {
                             if (dropChance <= MagicHealthConfig.getCommonMobDropChance()) {
 
                                 ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();

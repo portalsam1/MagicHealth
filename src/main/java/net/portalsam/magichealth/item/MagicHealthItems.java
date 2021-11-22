@@ -1,5 +1,6 @@
 package net.portalsam.magichealth.item;
 
+import net.portalsam.magichealth.MagicHealth;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -13,6 +14,12 @@ public class MagicHealthItems {
     public static final HeartShard HEART_SHARD = new HeartShard(MAGIC_HEALTH_ITEMS);
     public static final HeartCrystal HEART_CRYSTAL = new HeartCrystal(MAGIC_HEALTH_ITEMS);
     public static final HeartDrainAmulet HEART_DRAIN_AMULET = new HeartDrainAmulet(MAGIC_HEALTH_ITEMS);
+
+    // Brought this back I guess...?
+    static {
+        MagicHealth.getMagicHealthLogger().info(String.format("[%s] Finished registering items, " + MAGIC_HEALTH_ITEMS.size() + " items registered.",
+                MagicHealth.getMagicHealthInstance().getDescription().getName()));
+    }
 
     /*/ Getters. /*/
 

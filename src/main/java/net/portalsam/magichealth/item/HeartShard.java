@@ -51,26 +51,8 @@ public class HeartShard {
 
             Bukkit.addRecipe(recipe);
 
-            // Second recipe for pre-model data compatibility.
-
-            ItemStack heartDustItemClean = MagicHealthItems.HEART_DUST.heartDustItem;
-            heartDustItemClean.setItemMeta(itemMetaClean);
-
-            NamespacedKey keyClean = new NamespacedKey(MagicHealth.getMagicHealthInstance(), "heart_shard_clean");
-            RecipeChoice heartDustClean = new RecipeChoice.ExactChoice(heartDustItemClean);
-
-            ShapedRecipe recipeClean = new ShapedRecipe(keyClean, heartShardItem);
-            recipeClean.shape("DD", "DD");
-            recipeClean.setIngredient('D', heartDustClean);
-
-            Bukkit.addRecipe(recipeClean);
-
         }
 
-    }
-
-    public ItemMeta getItemMetaClean() {
-        return itemMetaClean;
     }
 
     public ItemStack getHeartShardItem() {

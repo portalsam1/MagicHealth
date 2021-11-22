@@ -6,7 +6,7 @@
 
     <groupId>net.portalsam</groupId>
     <artifactId>magichealth</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <packaging>jar</packaging>
 
     <name>MagicHealth</name>
