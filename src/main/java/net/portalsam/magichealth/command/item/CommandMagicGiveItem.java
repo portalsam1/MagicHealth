@@ -3,6 +3,7 @@ package net.portalsam.magichealth.command.item;
 import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.database.PluginLanguage;
 import net.portalsam.magichealth.item.MagicHealthItems;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,8 +22,6 @@ public class CommandMagicGiveItem implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (sender instanceof Player) {
-
             if(args.length > 0) {
 
                 // Display a list of items if the player requests.
@@ -39,50 +38,59 @@ public class CommandMagicGiveItem implements CommandExecutor {
 
                 }
 
-                // Search for the item the player specified in MAGIC_HEALTH_ITEMS, and if it is found set itemToGive to that item.
-                ItemStack itemToGive = null;
-                for(ItemStack item : MagicHealthItems.MAGIC_HEALTH_ITEMS) {
-                    if(ChatColor.stripColor(Objects.requireNonNull(item.getItemMeta()).getDisplayName()).equalsIgnoreCase(args[0].replace("_", " ")))
-                    {
-                        itemToGive = item;
-                    }
-                }
+                if(Bukkit.getPlayer(args[0]) != null) {
 
-                // If the item is not null give it to the player, else throw an error and return.
-                if(itemToGive != null) {
+                    Player targetPlayer = Bukkit.getPlayer(args[0]);
 
-                    Player player = (Player) sender;
+                    ItemStack itemToGive = null;
 
                     try {
-                        if(args[1] != null) {
-                            try {
-                                itemToGive.setAmount(Integer.parseInt(args[1]));
-                            } catch (NumberFormatException ignored) {
-                                itemToGive.setAmount(1);
+                        // Search for the item the player specified in MAGIC_HEALTH_ITEMS, and if it is found set itemToGive to that item.
+                        for(ItemStack item : MagicHealthItems.MAGIC_HEALTH_ITEMS) {
+                            if(ChatColor.stripColor(Objects.requireNonNull(item.getItemMeta()).getDisplayName()).equalsIgnoreCase(args[1].replace("_", " ")))
+                            {
+                                itemToGive = item;
                             }
-                        } else itemToGive.setAmount(1);
-                    } catch (IndexOutOfBoundsException ignored) {
-                        itemToGive.setAmount(1);
+                        }
+                    } catch(IndexOutOfBoundsException ignored) {
+                        sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemInvalidUsage()).replace("{LISTARGUMENT}", PluginLanguage.getMagicGiveItemListSubcommandName()));
+                        return true;
                     }
 
-                    player.getInventory().addItem(itemToGive);
-                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemGiven()).replace("{ITEMAMOUNT}", itemToGive.getAmount() + "").replace("{ITEMGIVEN}", itemToGive.getItemMeta().getDisplayName()));
-                    log.info(String.format("[%s] Giving " + "[" + ChatColor.LIGHT_PURPLE + "x" + itemToGive.getAmount() + ChatColor.WHITE + "]" + " of item " + itemToGive.getItemMeta().getDisplayName() + ChatColor.WHITE + " to player " + ((Player) sender).getDisplayName(), magicHealth.getDescription().getName()));
+                    // If the item is not null give it to the player, else throw an error and return.
+                    if(itemToGive != null) {
+
+                        try {
+                            if(args[2] != null) {
+                                try {
+                                    itemToGive.setAmount(Integer.parseInt(args[2]));
+                                } catch (NumberFormatException ignored) {
+                                    itemToGive.setAmount(1);
+                                }
+                            } else itemToGive.setAmount(1);
+                        } catch (IndexOutOfBoundsException ignored) {
+                            itemToGive.setAmount(1);
+                        }
+
+                        assert targetPlayer != null;
+                        targetPlayer.getInventory().addItem(itemToGive);
+                        sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemGiven()).replace("{ITEMAMOUNT}", itemToGive.getAmount() + "").replace("{ITEMGIVEN}", itemToGive.getItemMeta().getDisplayName()).replace("{PLAYER}", targetPlayer.getDisplayName()));
+                        log.info(String.format("[%s] Giving " + "[" + ChatColor.LIGHT_PURPLE + "x" + itemToGive.getAmount() + ChatColor.WHITE + "]" + " of item " + itemToGive.getItemMeta().getDisplayName() + ChatColor.WHITE + " to player " + targetPlayer.getDisplayName(), magicHealth.getDescription().getName()));
+
+                    } else {
+                        sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemInvalid()).replace("{INPUT}", args[0]));
+                    }
                     return true;
 
+
                 } else {
-                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemInvalid()).replace("{INPUT}", args[0]));
+
+                    sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemNonPlayer()));
                     return true;
+
                 }
 
             }
-
-        } else {
-
-            sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemNonPlayer()));
-            return true;
-
-        }
 
         sender.sendMessage(PluginLanguage.filterDefault(PluginLanguage.getMagicGiveItemInvalidUsage()).replace("{LISTARGUMENT}", PluginLanguage.getMagicGiveItemListSubcommandName()));
         return true;

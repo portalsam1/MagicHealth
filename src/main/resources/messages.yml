@@ -72,10 +72,10 @@ playerLoseAllHearts: "{PREFIX} &cAs consequence of your death you have lost all 
 magicGiveItemListSubcommandName: "list" # The name that will be used for the list subcommand for MagicGiveItem. Please do NOT use color codes here it would be invalid.
 
 magicGiveItemList: "{PREFIX} List of available items: {ITEMLIST}"                                                             # Item list represents the list of items names that this command outputs separated by your defined list separator.
-magicGiveItemGiven: "{PREFIX} Giving [&dx{ITEMAMOUNT}&f] of item ’{ITEMGIVEN}&f’"                                                      # The message shown when an item is given from this command, {ITEMGIVEN} should always have a white color tag at the end if you plan on moving it around.
+magicGiveItemGiven: "{PREFIX} Giving [&dx{ITEMAMOUNT}&f] of item ’{ITEMGIVEN}&f’ to player {PLAYER}"                                                      # The message shown when an item is given from this command, {ITEMGIVEN} should always have a white color tag at the end if you plan on moving it around. {PLAYER} being the display name of the player the item was given to.
 magicGiveItemInvalid: "{PREFIX} &cItem ’{INPUT}’ does not exist."                                                             # If the player inputs an item that doesn’t exist {INPUT} being what the player typed.
-magicGiveItemNonPlayer: "{PREFIX} &cThis command can only be used by a player."                                                        # When a non player (The console) tries to execute this command.
-magicGiveItemInvalidUsage: "{PREFIX} &cInvalid usage! Use argument ’{LISTARGUMENT}’ for a list of items or supply a valid item name."  # The message displayed when the player uses the command without enough arguments or invalid ones. {LISTARGUMENT} is magicGiveItemListSubcommandName that you set above.
+magicGiveItemNonPlayer: "{PREFIX} &cThat player doesn't exist."                                                               # When the player specified doesn't exist.
+magicGiveItemInvalidUsage: "{PREFIX} &cInvalid usage! Use argument ’{LISTARGUMENT}’ for a list of items or supply a valid player and item name."  # The message displayed when the player uses the command without enough arguments or invalid ones. {LISTARGUMENT} is magicGiveItemListSubcommandName that you set above.
 
   # -- MagicSetMaxHealth
 
