@@ -73,7 +73,7 @@ Commands for MagicHealth, bare with me these commands get lengthy. They also all
   
   *Example:*
   ```
-  /magichealthgive heart_dust 5
+  /magichealthgive [yourname] heart_dust 5
   ```
   *Result:*
   
