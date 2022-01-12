@@ -64,6 +64,7 @@ public final class MagicHealth extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MagicPlayerInteractEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MagicPlayerDeathEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MagicPlayerJoinEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new MagicEntitySpawnEvent(), this);
 
     }
 

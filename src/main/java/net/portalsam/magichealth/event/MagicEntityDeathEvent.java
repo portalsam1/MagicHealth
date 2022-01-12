@@ -4,14 +4,16 @@ import net.portalsam.magichealth.MagicHealth;
 import net.portalsam.magichealth.config.MagicHealthConfig;
 import net.portalsam.magichealth.database.PlayerHealth;
 import net.portalsam.magichealth.item.MagicHealthItems;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +101,17 @@ public class MagicEntityDeathEvent implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
 
         if(MagicHealthConfig.mobDropsAreEnabled()) {
-            if(event.getEntity().getKiller() != null) {
 
-                LivingEntity entity = event.getEntity();
+            // Get the data that was set in MagicEntitySpawnEvent, if it's true exit this branch.
+
+            LivingEntity entity = event.getEntity();
+            PersistentDataContainer spawnDataContainer = entity.getPersistentDataContainer();
+            String entityData = spawnDataContainer.get(new NamespacedKey(MagicHealth.getMagicHealthInstance(), "disable_magicDrops"), PersistentDataType.STRING);
+
+            if(entityData == null) entityData = "false";
+            if(entityData.equalsIgnoreCase("true")) return;
+
+            if(event.getEntity().getKiller() != null) {
 
                 // Generate a number to determine drops.
                 float dropChance = (float)ThreadLocalRandom.current().nextDouble(0D, 100D);
@@ -122,7 +132,7 @@ public class MagicEntityDeathEvent implements Listener {
                                 Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
 
                             }
-                        } else if(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) < MagicHealthConfig.getMaximumPlayerHealth()) {
+                        } else if(PlayerHealth.getPlayerMaximumHealthFromDatabase(Objects.requireNonNull(entity.getKiller())) < MagicHealthConfig.getMaximumPlayerHealth()) {
                             if(dropChance <= MagicHealthConfig.getBossMobDropChance()) {
 
                                 ItemStack drop = MagicHealthItems.HEART_SHARD.getHeartShardItem();
@@ -152,7 +162,7 @@ public class MagicEntityDeathEvent implements Listener {
                                 Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
 
                             }
-                        } else if(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) < MagicHealthConfig.getMaximumPlayerHealth()) {
+                        } else if(PlayerHealth.getPlayerMaximumHealthFromDatabase(Objects.requireNonNull(entity.getKiller())) < MagicHealthConfig.getMaximumPlayerHealth()) {
                             if (dropChance <= MagicHealthConfig.getUncommonMobDropChance()) {
 
                                 ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();
@@ -181,7 +191,7 @@ public class MagicEntityDeathEvent implements Listener {
                                 Objects.requireNonNull(entity.getLocation().getWorld()).dropItem(entity.getLocation(), drop);
 
                             }
-                        } else if(PlayerHealth.getPlayerMaximumHealthFromDatabase(entity.getKiller()) < MagicHealthConfig.getMaximumPlayerHealth()) {
+                        } else if(PlayerHealth.getPlayerMaximumHealthFromDatabase(Objects.requireNonNull(entity.getKiller())) < MagicHealthConfig.getMaximumPlayerHealth()) {
                             if (dropChance <= MagicHealthConfig.getCommonMobDropChance()) {
 
                                 ItemStack drop = MagicHealthItems.HEART_DUST.getHeartDustItem();

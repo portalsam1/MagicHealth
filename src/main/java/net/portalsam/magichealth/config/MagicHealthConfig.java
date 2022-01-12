@@ -29,6 +29,7 @@ public class MagicHealthConfig {
     // Drop percentages.
 
     private static boolean enableMobDrops = true;
+    private static boolean enableSpawnerDrops = true;
     private static boolean maxHealthPlayersLootHeartDust = true;
 
     private static float bossMobDropChance = 100.0f;
@@ -99,6 +100,7 @@ public class MagicHealthConfig {
         maxHealthPlayersLootHeartDust = config.getBoolean("maxHealthPlayersLootHeartDust");
 
         enableMobDrops = config.getBoolean("enableMobDrops");
+        enableSpawnerDrops = config.getBoolean("enableSpawnerDrops");
 
         bossMobDropChance = (float)config.getDouble("bossMobDropChance");
         bossMobDropAmounts[0] = config.getInt("bossMobDropMinimum");
@@ -225,6 +227,10 @@ public class MagicHealthConfig {
 
     public static boolean mobDropsAreEnabled() {
         return enableMobDrops;
+    }
+
+    public static boolean spawnersAreEnabled() {
+        return enableSpawnerDrops;
     }
 
     public static float getDefaultPlayerHealth() {

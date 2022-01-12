@@ -48,6 +48,9 @@ decreaseHealthBy: 2.0
 # Whether to enable drops at all from mobs.
 enableMobDrops: true
 
+# Should mobs from spawners drop heart dust?
+enableSpawnerDrops: true
+
 #-------------------------------------------------#
 
 # Percent chance from 0 - 100 that a boss mob will drop magic loot.
